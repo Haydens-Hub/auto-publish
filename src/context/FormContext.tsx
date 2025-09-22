@@ -12,6 +12,7 @@ type FormData = {
   draftFile?: File | null; // optional file upload
   category: "academic" | "youth" | "creative" | "advocacy" | "community" | "";
   missionResonance: string;
+  missionRelation: string;
   articleFile?: File | null;
   signature: string;
   questions: string;
@@ -38,6 +39,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
     draftFile: null,
     category: "",
     missionResonance: "",
+    missionRelation: "",
     articleFile: null,
     signature: "",
     questions: "",
@@ -57,6 +59,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
       draftFile: null,
       category: "",
       missionResonance: "",
+      missionRelation: "",
       articleFile: null,
       signature: "",
       questions: "",
@@ -70,7 +73,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// 5. Hook for consuming
+// Hook for consuming
 export function useFormData() {
   const ctx = useContext(FormContext);
   if (!ctx) throw new Error("useFormData must be used inside FormProvider");

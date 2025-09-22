@@ -15,5 +15,19 @@ export const FormSchema = z.object({
   questions: z.string().optional(),
 });
 
-// Optional: create a TypeScript type from the schema
+// Schema for Step 1 of the form
+export const Step1Schema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.email("Invalid email"),
+  submissionType: z.enum(["pitch", "draft"], "Submission type is required"),
+});
+
+export const Step2Schema = z.object({
+  ideaDescription: z.string().min(1, "Idea description is required"),
+  motivation: z.string().min(1, "Motivation is required"),
+  draftFile: z.any().optional(), 
+})
+
+
+// create a TypeScript type from the schema
 export type FormDataType = z.infer<typeof FormSchema>;
