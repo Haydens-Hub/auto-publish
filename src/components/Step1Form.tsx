@@ -7,6 +7,8 @@ import { useState } from "react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { SubmissionLayout } from "./SubmissionLayout";
+import FormInput from "./FormInput";
+import { submissionCats, titles } from "@/constants/formConstants";
 
 export const Step1Form = () => {
   const router = useRouter();
@@ -78,55 +80,28 @@ export const Step1Form = () => {
         {/* Step 1 Inputs */}
         <div className="flex flex-col justify-start items-start gap-2 mt-8 w-full max-w-2xl mx-auto">
           {/* Name */}
-          <label className="flex flex-row text-lg font-semibold">
-            Name<p className="text-red-500">*</p>
-          </label>
-          <input
+          <FormInput 
             type="text"
             placeholder="Name"
-            value={data.name}
-            onChange={(e) => updateField("name", e.target.value)}
-            className="rounded-md border-t-2 border-gray-300 shadow-md focus:border-indigo-500 focus:ring-indigo-500 w-full px-3 py-2"
+            formDataAttr="name"
+            title={titles.name}
           />
 
-          {/* Email */}
-          <label className="flex flex-row font-semibold mt-8">
-            Email<p className="text-red-500">*</p>
-          </label>
-          <input
+          {/* Email */} 
+          <FormInput 
             type="email"
             placeholder="Email"
-            value={data.email}
-            onChange={(e) => updateField("email", e.target.value)}
-            className="rounded-md border-t-2 border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 w-full px-3 py-2"
+            formDataAttr="email"
+            title={titles.email}
           />
 
           {/* Submission Type */}
-          <div className="flex flex-col gap-2 mt-8">
-            <label className="flex flex-row font-semibold">
-              Submission Type<p className="text-red-500">*</p>
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="submissionType"
-                value="pitch"
-                checked={data.submissionType === "pitch"}
-                onChange={() => updateField("submissionType", "pitch")}
-              />
-              I would like to submit a pitch for an idea
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="submissionType"
-                value="draft"
-                checked={data.submissionType === "draft"}
-                onChange={() => updateField("submissionType", "draft")}
-              />
-              I would like to submit my completed draft
-            </label>
-          </div>
+          <FormInput
+            type="radio"
+            formDataAttr="category"
+            title="What category is your submission?"
+            options={submissionCats}
+          />
         </div>
       </div>
     </SubmissionLayout>
