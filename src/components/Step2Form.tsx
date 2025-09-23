@@ -42,7 +42,12 @@ export const Step2Form = () => {
   };
 
   return (
-    <SubmissionLayout onSubmit={handleSubmit} onCancel={() => {}}>
+    <SubmissionLayout
+      onSubmit={handleSubmit}
+      onCancel={() => {
+        router.push("/form-submission/step1");
+      }}
+    >
       <div className="border-b border-gray-900/10 pb-12">
         <div className="flex flex-col justify-center items-center gap-8">
           <h2 className="text-3xl md:text-4xl font-bold">

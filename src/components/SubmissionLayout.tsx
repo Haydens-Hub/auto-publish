@@ -24,7 +24,7 @@ export const SubmissionLayout: FunctionComponent<FormProps> = ({
           className="text-sm/6 cursor-pointer font-semibold text-gray-900"
           onClick={onCancel}
         >
-          Cancel
+          Back
         </button>
         <button
           type="submit"
