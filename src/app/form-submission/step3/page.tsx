@@ -1,6 +1,6 @@
 "use client"
 
-import { Step1Form } from "@/components/Step1Form"
+import { Step3Form } from "@/components/Step3Form"
 import Image from "next/image"
 
 const page = () => {
@@ -13,7 +13,7 @@ const page = () => {
             height={70}
             className="rounded-2xl"
         />
-        <Step1Form />
+        <Step3Form />
     </div>
   )
 }

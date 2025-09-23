@@ -13,7 +13,7 @@ type FormData = {
   category: "academic" | "youth" | "creative" | "advocacy" | "community" | "";
   missionResonance: string;
   missionRelation: string;
-  articleFile?: File | null;
+  articleFile: File | null;
   signature: string;
   questions: string;
 };

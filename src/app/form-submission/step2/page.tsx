@@ -9,7 +9,7 @@ const page = () => {
         <Image 
             src='/images/child_with_colors.jpg' 
             alt="Child playing with colors" 
-            width={1200} 
+            width={900} 
             height={70}
             className="rounded-2xl"
         />

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { SubmissionLayout } from "./SubmissionLayout";
+import Link from "next/link";
 
 export const Step2Form = () => {
   const router = useRouter();
@@ -23,8 +24,7 @@ export const Step2Form = () => {
       });
       setErrors({});
       // Proceed to next step
-      console.log("Reachig function!");
-      router.push("/form-submission/step2");
+      router.push("/form-submission/step3");
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
@@ -91,7 +91,7 @@ export const Step2Form = () => {
             <input
               type="file"
               onChange={(e) => updateField("draftFile", e.target.value)}
-              className="block w-full text-sm text-gray-600
+              className="block w-full text-sm cursor-pointer text-gray-600
                                     file:mr-4 file:py-2 file:px-4
                                     file:rounded-lg file:border-0
                                     file:text-sm file:font-semibold
@@ -100,6 +100,14 @@ export const Step2Form = () => {
                                     border border-gray-300 rounded-lg shadow-sm
                                     focus:outline-none focus:ring-2 focus:ring-[#5D8DCD] focus:[#5D8DCD]"
             />
+          </div>
+          <div className="flex flex-col gap-4 mt-8 text-md mb">
+            <p>
+                Thank you for submitting your idea! A team member will connect with you and set up a meeting to further discuss. 
+            </p>
+            <p className="text-sm">
+                Feel free to email <a href='mailto:research.haydenshub@gmail.com' className="text-blue-600 underline">research.haydenshub@gmail.com</a> for any questions or concerns. 
+            </p>
           </div>
         </div>
       </div>
