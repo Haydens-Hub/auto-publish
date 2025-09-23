@@ -26,9 +26,10 @@ export const Step1Form = () => {
       });
       setErrors({});
       // Proceed to next step
-      console.log("Reachig function!");
+      console.log("Reaching function!");
       router.push("/form-submission/step2");
     } catch (err) {
+      console.error(err);
       if (err instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
         err.issues.forEach((issue) => {
@@ -80,15 +81,15 @@ export const Step1Form = () => {
         {/* Step 1 Inputs */}
         <div className="flex flex-col justify-start items-start gap-2 mt-8 w-full max-w-2xl mx-auto">
           {/* Name */}
-          <FormInput 
+          <FormInput
             type="text"
             placeholder="Name"
             formDataAttr="name"
             title={titles.name}
           />
 
-          {/* Email */} 
-          <FormInput 
+          {/* Email */}
+          <FormInput
             type="email"
             placeholder="Email"
             formDataAttr="email"
@@ -98,7 +99,7 @@ export const Step1Form = () => {
           {/* Submission Type */}
           <FormInput
             type="radio"
-            formDataAttr="category"
+            formDataAttr="submissionType"
             title="What category is your submission?"
             options={submissionCats}
           />
