@@ -1,44 +1,52 @@
-import { useFormData } from '@/context/FormContext'
-import React from 'react'
+import { useFormData } from "@/context/FormContext";
+import React from "react";
 
 type FormInputProps = {
-    type: "text" | "email" | "file" | "radio",
-    formDataAttr: string,
-    title: string,
-    placeholder?: string,    
-    options?: { value: string; label: string }[];
-}
+  type: "text" | "email" | "file" | "radio";
+  formDataAttr: string;
+  title: string;
+  placeholder?: string;
+  options?: { value: string; label: string }[];
+  required?: boolean;
+};
 
-const FormInput = ({ type, formDataAttr, title, placeholder, options } : FormInputProps) => {
-  
+const FormInput = ({
+  type,
+  formDataAttr,
+  title,
+  placeholder,
+  options,
+  required,
+}: FormInputProps) => {
   const { data, updateField } = useFormData();
 
-  if(type == 'text' || type == 'email'){
+  if (type == "text" || type == "email") {
     return (
-        <div className='flex flex-col gap-2 my-6 w-full'>
-            <label className="flex flex-row text-lg font-semibold">
-                {title}<p className="text-red-500">*</p>
-              </label>
-            <input
-            type={type}
-            placeholder={placeholder}
-            value={data[formDataAttr as keyof typeof data] as string}
-            onChange={(e) => updateField(formDataAttr as keyof typeof data, e.target.value)}
-            className="rounded-md border-t-2 border-gray-300 shadow-md focus:border-indigo-500 focus:ring-indigo-500 w-full px-3 py-2"
-            />
-        </div>
-    )
-  }
-
-  else if(type == 'file'){
-    return(
-      <div className="flex flex-col gap-2 mt-8">
-        <label className="flex flex-row font-semibold">
+      <div className="flex flex-col gap-2 my-6 w-full">
+        <label className="flex flex-row text-lg font-semibold">
           {title}
+          {required && <p className="text-red-500">*</p>}
         </label>
         <input
+          type={type}
+          placeholder={placeholder}
+          value={data[formDataAttr as keyof typeof data] as string}
+          onChange={(e) =>
+            updateField(formDataAttr as keyof typeof data, e.target.value)
+          }
+          className="rounded-md border-t-2 border-gray-300 shadow-md focus:border-indigo-500 focus:ring-indigo-500 w-full px-3 py-2"
+        />
+      </div>
+    );
+  } else if (type == "file") {
+    return (
+      <div className="flex flex-col gap-2 mt-8">
+        <label className="flex flex-row font-semibold">{title}</label>
+        <input
           type="file"
-          onChange={(e) => updateField(formDataAttr as keyof typeof data, e.target.value)}
+          onChange={(e) =>
+            updateField(formDataAttr as keyof typeof data, e.target.value)
+          }
           className="block w-full text-sm cursor-pointer text-gray-600
                                 file:mr-4 file:py-2 file:px-4
                                 file:rounded-lg file:border-0
@@ -49,14 +57,15 @@ const FormInput = ({ type, formDataAttr, title, placeholder, options } : FormInp
                                 focus:outline-none focus:ring-2 focus:ring-[#5D8DCD] focus:[#5D8DCD]"
         />
       </div>
-    )
-  }
-
-  else if (type === 'radio' && options) {
+    );
+  } else if (type === "radio" && options) {
     return (
       <div className="flex flex-col gap-2 mt-8">
-        <label className="flex flex-row font-semibold">{title}<p className="text-red-500">*</p></label>
-        
+        <label className="flex flex-row font-semibold">
+          {title}
+          {required && <p className="text-red-500">*</p>}
+        </label>
+
         {options.map((opt) => (
           <label key={opt.value} className="flex items-center gap-2">
             <input
@@ -72,14 +81,10 @@ const FormInput = ({ type, formDataAttr, title, placeholder, options } : FormInp
           </label>
         ))}
       </div>
-    )
+    );
   }
 
-  return (
-    <div>
+  return <div></div>;
+};
 
-    </div>
-  )
-}
-
-export default FormInput
+export default FormInput;
