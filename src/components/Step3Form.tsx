@@ -25,9 +25,8 @@ export const Step3Form = () => {
         submissionType: data.submissionType,
       });
       setErrors({});
-      
-      //TODO: Add backend logic to send the submission to admin panel
 
+      //TODO: Add backend logic to send the submission to admin panel
 
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -43,7 +42,7 @@ export const Step3Form = () => {
   };
 
   return (
-    <SubmissionLayout onSubmit={handleSubmit} onCancel={() => {}}>
+    <SubmissionLayout onSubmit={handleSubmit} onCancel={() => {router.push("/form-submission/step2")}}>
       <div className="border-b border-gray-900/10 pb-12">
         <div className="flex flex-col justify-center items-center gap-8">
           <h2 className="text-3xl md:text-4xl font-bold">
