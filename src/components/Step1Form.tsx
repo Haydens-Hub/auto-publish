@@ -85,6 +85,7 @@ export const Step1Form = () => {
             type="text"
             placeholder="Name"
             formDataAttr="name"
+            required
             title={titles.name}
           />
 
@@ -93,6 +94,7 @@ export const Step1Form = () => {
             type="email"
             placeholder="Email"
             formDataAttr="email"
+            required
             title={titles.email}
           />
 
@@ -101,6 +103,7 @@ export const Step1Form = () => {
             type="radio"
             formDataAttr="submissionType"
             title="What category is your submission?"
+            required
             options={submissionCats}
           />
         </div>

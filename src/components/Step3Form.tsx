@@ -19,16 +19,15 @@ export const Step3Form = () => {
     e.preventDefault();
     try {
       // Validate Step 1 fields only
+      console.log(data);
       Step3Schema.parse({
         ideaDescription: data.ideaDescription,
         motivation: data.motivation,
         submissionType: data.submissionType,
       });
       setErrors({});
-      
+
       //TODO: Add backend logic to send the submission to admin panel
-
-
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
@@ -55,37 +54,46 @@ export const Step3Form = () => {
         <div className="flex flex-col justify-start items-start gap-2 mt-8 w-full max-w-2xl mx-auto">
           <div className="border-t-8 flex w-full justify-center items-center shadow-md border-red-500 rounded-lg py-2 px-3">
             <p className="font-semibold text-[#3F493D]">
-              Learn more about our submission process <Link href='https://docs.google.com/document/d/1X3bqkViAucD2TG4gOeIHJ-RjENp5OH9BM34fYZMuF9Q/edit?tab=t.0' className="text-blue-600 underline">here</Link>
+              Learn more about our submission process{" "}
+              <Link
+                href="https://docs.google.com/document/d/1X3bqkViAucD2TG4gOeIHJ-RjENp5OH9BM34fYZMuF9Q/edit?tab=t.0"
+                className="text-blue-600 underline"
+              >
+                here
+              </Link>
             </p>
           </div>
 
           {/* Category */}
-          
+
           <FormInput
             type="radio"
             formDataAttr="category"
             title="What category is your submission?"
+            required
             options={categories}
           />
 
           {/* Idea Description */}
-          <FormInput 
+          <FormInput
             type="text"
             placeholder="Your Answer"
-            formDataAttr="ideaDescription"
-            title={titles.ideaDescription}
+            formDataAttr="missionResonance"
+            required
+            title={titles.missionResonance}
           />
-          
+
           {/* Mission Relation */}
-          <FormInput 
+          <FormInput
             type="text"
             placeholder="Your Answer"
             formDataAttr="missionRelation"
+            required
             title={titles.missionRelation}
           />
 
           {/* Article File */}
-          <FormInput 
+          <FormInput
             type="file"
             placeholder="Your Answer"
             formDataAttr="articleFile"
@@ -93,15 +101,16 @@ export const Step3Form = () => {
           />
 
           {/* Signature */}
-          <FormInput 
+          <FormInput
             type="text"
             placeholder="Your Answer"
             formDataAttr="signature"
+            required
             title={titles.signature}
           />
-          
+
           {/* Questions */}
-          <FormInput 
+          <FormInput
             type="text"
             placeholder="Your Answer"
             formDataAttr="questions"
@@ -109,11 +118,16 @@ export const Step3Form = () => {
           />
 
           <div className="flex flex-col gap-4 mt-8 text-md mb">
-            <p>
-                Thank you for submitting!
-            </p>
+            <p>Thank you for submitting!</p>
             <p className="text-sm">
-                We will connect with you shortly. Please contact <a href='mailto:research.haydenshub@gmail.com' className="text-blue-600 underline">research.haydenshub@gmail.com</a> for any questions. 
+              We will connect with you shortly. Please contact{" "}
+              <a
+                href="mailto:research.haydenshub@gmail.com"
+                className="text-blue-600 underline"
+              >
+                research.haydenshub@gmail.com
+              </a>{" "}
+              for any questions.
             </p>
           </div>
         </div>

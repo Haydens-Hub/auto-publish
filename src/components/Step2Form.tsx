@@ -15,11 +15,10 @@ export const Step2Form = () => {
   const { data, updateField } = useFormData();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  console.log(data)
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      console.log(data);
       // Validate Step 1 fields only
       Step2Schema.parse({
         ideaDescription: data.ideaDescription,
@@ -62,23 +61,25 @@ export const Step2Form = () => {
           </div>
 
           {/* Idea Description */}
-          <FormInput 
+          <FormInput
             type="text"
             placeholder="Your Answer"
             formDataAttr="ideaDescription"
+            required
             title={titles.ideaDescription}
           />
 
           {/* Motivation */}
-          <FormInput 
+          <FormInput
             type="text"
             placeholder="Your Answer"
             formDataAttr="motivation"
+            required
             title={titles.motivation}
           />
 
           {/* Draft File */}
-          <FormInput 
+          <FormInput
             type="file"
             formDataAttr="draftFile"
             title={titles.draftFile}
@@ -86,10 +87,18 @@ export const Step2Form = () => {
 
           <div className="flex flex-col gap-4 mt-8 text-md mb">
             <p>
-                Thank you for submitting your idea! A team member will connect with you and set up a meeting to further discuss. 
+              Thank you for submitting your idea! A team member will connect
+              with you and set up a meeting to further discuss.
             </p>
             <p className="text-sm">
-                Feel free to email <a href='mailto:research.haydenshub@gmail.com' className="text-blue-600 underline">research.haydenshub@gmail.com</a> for any questions or concerns. 
+              Feel free to email{" "}
+              <a
+                href="mailto:research.haydenshub@gmail.com"
+                className="text-blue-600 underline"
+              >
+                research.haydenshub@gmail.com
+              </a>{" "}
+              for any questions or concerns.
             </p>
           </div>
         </div>
