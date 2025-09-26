@@ -69,6 +69,7 @@ export const Step2Form = () => {
             formDataAttr="ideaDescription"
             required
             title={titles.ideaDescription}
+            error={errors.ideaDescription}
           />
 
           {/* Motivation */}
@@ -78,6 +79,7 @@ export const Step2Form = () => {
             formDataAttr="motivation"
             required
             title={titles.motivation}
+            error={errors.motivation}
           />
 
           {/* Draft File */}
@@ -85,24 +87,8 @@ export const Step2Form = () => {
             type="file"
             formDataAttr="draftFile"
             title={titles.draftFile}
+            error={errors.draftFile}
           />
-
-          <div className="flex flex-col gap-4 mt-8 text-md mb">
-            <p>
-              Thank you for submitting your idea! A team member will connect
-              with you and set up a meeting to further discuss.
-            </p>
-            <p className="text-sm">
-              Feel free to email{" "}
-              <a
-                href="mailto:research.haydenshub@gmail.com"
-                className="text-blue-600 underline"
-              >
-                research.haydenshub@gmail.com
-              </a>{" "}
-              for any questions or concerns.
-            </p>
-          </div>
         </div>
       </div>
     </SubmissionLayout>

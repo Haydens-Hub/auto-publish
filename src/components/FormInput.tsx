@@ -8,6 +8,7 @@ type FormInputProps = {
   placeholder?: string;
   options?: { value: string; label: string }[];
   required?: boolean;
+  error?: string;
 };
 
 const FormInput = ({
@@ -17,6 +18,7 @@ const FormInput = ({
   placeholder,
   options,
   required,
+  error
 }: FormInputProps) => {
   const { data, updateField } = useFormData();
 
@@ -36,6 +38,7 @@ const FormInput = ({
           }
           className="rounded-md border-t-2 border-gray-300 shadow-md focus:border-indigo-500 focus:ring-indigo-500 w-full px-3 py-2"
         />
+        {error && <p className="text-red-500">{error}</p>}
       </div>
     );
   } else if (type == "file") {
@@ -56,6 +59,7 @@ const FormInput = ({
                                 border border-gray-300 rounded-lg shadow-sm
                                 focus:outline-none focus:ring-2 focus:ring-[#5D8DCD] focus:[#5D8DCD]"
         />
+        {error && <p className="text-red-500">This is a required question</p>}
       </div>
     );
   } else if (type === "radio" && options) {
@@ -80,6 +84,7 @@ const FormInput = ({
             {opt.label}
           </label>
         ))}
+        {error && <p className="text-red-500">This is a required question</p>}
       </div>
     );
   }

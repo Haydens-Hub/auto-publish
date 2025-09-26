@@ -82,6 +82,7 @@ export const Step1Form = () => {
             formDataAttr="name"
             required
             title={titles.name}
+            error={errors.name}
           />
 
           {/* Email */}
@@ -91,6 +92,7 @@ export const Step1Form = () => {
             formDataAttr="email"
             required
             title={titles.email}
+            error={errors.email}
           />
 
           {/* Submission Type */}
@@ -100,6 +102,7 @@ export const Step1Form = () => {
             title="What category is your submission?"
             required
             options={submissionCats}
+            error={errors.submissionType}
           />
         </div>
       </div>

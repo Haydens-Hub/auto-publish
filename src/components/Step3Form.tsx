@@ -22,9 +22,12 @@ export const Step3Form = () => {
       // Validate Step 1 fields only
       console.log(data);
       Step3Schema.parse({
-        ideaDescription: data.ideaDescription,
-        motivation: data.motivation,
-        submissionType: data.submissionType,
+        category: data.category,
+        missionResonance: data.missionResonance,
+        missionRelation: data.missionRelation,
+        articleFile: data.articleFile,
+        signature: data.signature,
+        questions: data.questions,
       });
       setErrors({});
 
@@ -74,6 +77,7 @@ export const Step3Form = () => {
             title="What category is your submission?"
             required
             options={categories}
+            error={errors.category}
           />
 
           {/* Idea Description */}
@@ -83,6 +87,7 @@ export const Step3Form = () => {
             formDataAttr="missionResonance"
             required
             title={titles.missionResonance}
+            error={errors.missionResonance}
           />
 
           {/* Mission Relation */}
@@ -92,6 +97,7 @@ export const Step3Form = () => {
             formDataAttr="missionRelation"
             required
             title={titles.missionRelation}
+            error={errors.missionRelation}
           />
 
           {/* Article File */}
@@ -100,6 +106,7 @@ export const Step3Form = () => {
             placeholder="Your Answer"
             formDataAttr="articleFile"
             title={titles.articleFile}
+            error={errors.articleFile}
           />
 
           {/* Signature */}
@@ -109,6 +116,7 @@ export const Step3Form = () => {
             formDataAttr="signature"
             required
             title={titles.signature}
+            error={errors.signature}
           />
 
           {/* Questions */}
@@ -117,6 +125,7 @@ export const Step3Form = () => {
             placeholder="Your Answer"
             formDataAttr="questions"
             title={titles.questions}
+            error={errors.questions}
           />
 
           <div className="flex flex-col gap-4 mt-8 text-md mb">

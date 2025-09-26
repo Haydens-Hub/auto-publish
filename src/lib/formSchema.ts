@@ -6,11 +6,14 @@ export const FormSchema = z.object({
   submissionType: z.enum(["pitch", "draft"], "Submission type is required"),
   ideaDescription: z.string().min(1, "Idea description is required"),
   motivation: z.string().min(1, "Motivation is required"),
-  draftFile: z.any().optional(), 
-  category: z.enum(["academic", "youth", "creative", "advocacy", "community"], "Category is required"),
+  draftFile: z.any().optional(),
+  category: z.enum(
+    ["academic", "youth", "creative", "advocacy", "community"],
+    "Category is required",
+  ),
   missionResonance: z.string().min(1, "Mission resonance is required"),
   missionRelation: z.string().min(1, "Mission relation is required"),
-  articleFile: z.any(), 
+  articleFile: z.any(),
   signature: z.string().min(1, "Signature is required"),
   questions: z.string().optional(),
 });
@@ -25,18 +28,20 @@ export const Step1Schema = z.object({
 export const Step2Schema = z.object({
   ideaDescription: z.string().min(1, "Idea description is required"),
   motivation: z.string().min(1, "Motivation is required"),
-  draftFile: z.any().optional(), 
-})
+  draftFile: z.any().optional(),
+});
 
 export const Step3Schema = z.object({
-  category: z.enum(["academic", "youth", "creative", "advocacy", "community"], "Category is required"),
+  category: z.enum(
+    ["academic", "youth", "creative", "advocacy", "community"],
+    "Category is required",
+  ),
   missionResonance: z.string().min(1, "Mission resonance is required"),
   missionRelation: z.string().min(1, "Mission relation is required"),
-  articleFile: z.any(), 
+  articleFile: z.any(),
   signature: z.string().min(1, "Signature is required"),
   questions: z.string().optional(),
-})
-
+});
 
 // create a TypeScript type from the schema
 export type FormDataType = z.infer<typeof FormSchema>;
