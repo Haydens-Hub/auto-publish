@@ -5,13 +5,16 @@ export default function Overview() {
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16">
     </div>
   </nav>
-
+      {/* Placeholder for header*/}
   <header className="relative bg-white shadow-sm">
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
     </div>
   </header>
+
+
   <main>
+    {/* Placeholder for main content*/}
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       {<section className="text-gray-600 body-font overflow-hidden">
   <div className="container px-5 py-24 mx-auto">
@@ -58,6 +61,7 @@ export default function Overview() {
 </section>}
     </div>
   </main>
+  {/* Placeholder endpoint for main content*/}
 </div>
   );
 }
