@@ -9,6 +9,7 @@ import { SubmissionLayout } from "./SubmissionLayout";
 import Link from "next/link";
 import FormInput from "./FormInput";
 import { titles } from "@/constants/formConstants";
+import { Header } from "./Header";
 
 export const Step2Form = () => {
   const router = useRouter();
@@ -49,11 +50,7 @@ export const Step2Form = () => {
       }}
     >
       <div className="border-b border-gray-900/10 pb-12">
-        <div className="flex flex-col justify-center items-center gap-8">
-          <h2 className="text-3xl md:text-4xl font-bold">
-            Hayden&apos;s Journal- Submissions
-          </h2>
-        </div>
+        <Header/>
 
         {/* Step 1 Inputs */}
         <div className="flex flex-col justify-start items-start gap-2 mt-8 w-full max-w-2xl mx-auto">
