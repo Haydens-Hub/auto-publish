@@ -1,15 +1,11 @@
-"use client"
+"use client";
 
 const TextInputProps = {
-    data: FormData,
-}
+  data: FormData,
+};
 
 const TextInput = () => {
-  return (
-    <>
-      
-    </>
-  )
-}
+  return <></>;
+};
 
-export default TextInput
+export default TextInput;
