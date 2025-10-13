@@ -1,20 +1,7 @@
-import Post from "../../../../models/Post";
-import { ConnectToDB } from "../../../../lib/dbConn";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { ConnectToDB,getPostById } from "../../../../lib/dbConn";
 {/*Set up Parameters, connnect to DB and fetch specific post*/}
 
 type Params={id:string};
-
-async function getPostById(id: string) {
-        await ConnectToDB();
-        const post = await Post.findById(id);
-        // returns the post while turning the date into a String
-        //if the post cannot be found, then return null
-            return post ? {
-        ...post.toObject(),
-        date: post.date instanceof Date ? post.date.toISOString() : String(post.date)
-    } : null;
-    }
 
 
 export default async function DetailsPage({params}:{params: Params}) {
@@ -109,10 +96,15 @@ export default async function DetailsPage({params}:{params: Params}) {
       </div>
     </dl>
   </div>
+  <div className="mt-8 pt-6 border-t border-gray-200">
+    <div className="flex justify-end">
+    </div>
+  </div>
 </div>
   </div>
 </section>}
     </div>
+
   </main>
   {/* end of main content*/}
 </div>
