@@ -71,9 +71,3 @@ export const getPostById=async(id: string)=>{
         date: post.date instanceof Date ? post.date.toISOString() : String(post.date)
     } : null;
     }
-
-export const DeletePostById=async(id: string)=>{
-    await ConnectToDB();
-    const deletedpost=await Post.findByIdAndDelete(id);
-    return deletedpost;
-}

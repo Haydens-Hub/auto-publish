@@ -10,7 +10,7 @@ to roll a SINGLE migration up, use npx migrate up <migration-name> --single
 to roll down a migration use: npx migrate down
 to roll a migration down from a certain version onwards use: npx migrate down<migration-name>
 to roll a SINGLE migration down, use npx migrate down <migration-name> --single
-
+For the migration-name, remember not to include the timestamp A
 Currently, ts-migrate-mongoose is being used for the migrations.
 There is the Old Post migration, which is not being handled by it, but I am unsure of whether the old schema will be used or not.
 
