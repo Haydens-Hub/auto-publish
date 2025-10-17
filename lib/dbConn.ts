@@ -2,25 +2,29 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import Post from "../models/Post";
 dotenv.config();
-
+//the global mongoose variable to cache
 declare global {
   var mongoose: any; // This must be a `var` and not a `let / const`
 }
 
+//to store the cached mongoose variable
 let cached = global.mongoose;
-
+//initialize the cached mongoose variable if needed
 if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 
 //script to connect to MongoDB
 export const ConnectToDB = async () => {
+  //check for empty DB string
   if (!process.env.DB_CONNECTION_STRING) {
     throw new Error("DB_CONNECTION_STRING is not defined");
   }
+  //check if the connection is already established
   if (cached.conn) {
     return cached.conn;
   }
+  //if the promise for the connection hasnt been created, then create it
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
@@ -28,6 +32,7 @@ export const ConnectToDB = async () => {
     cached.promise = mongoose.connect(process.env.DB_CONNECTION_STRING!);
     return mongoose;
   }
+  //if the promise for the connection has been created, then wait for it
   try {
     cached.conn = await cached.promise;
   } catch (e) {
@@ -36,14 +41,7 @@ export const ConnectToDB = async () => {
   }
   return cached.conn;
 
-  /*
-    try{
-    await mongoose.connect(process.env.DB_CONNECTION_STRING!);
-    console.log("connection successful");
-}catch(err){
-    console.log(err);
-}
-    */
+
 };
 
 //script to close the connection
@@ -64,6 +62,10 @@ export const getPostById = async (id: string) => {
   return post
     ? {
         ...post.toObject(),
-        date: post.date instanceof Date ? post.date.toISOString() : String(post.date)
-    } : null;
-    }
+        date:
+          post.date instanceof Date
+            ? post.date.toISOString()
+            : String(post.date),
+      }
+    : null;
+};
