@@ -50,7 +50,7 @@ export const Step2Form = () => {
       }}
     >
       <div className="border-b border-gray-900/10 pb-12">
-        <Header/>
+        <Header />
 
         {/* Step 1 Inputs */}
         <div className="flex flex-col justify-start items-start gap-2 mt-8 w-full max-w-2xl mx-auto">

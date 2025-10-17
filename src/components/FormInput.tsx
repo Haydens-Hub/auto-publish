@@ -18,7 +18,7 @@ const FormInput = ({
   placeholder,
   options,
   required,
-  error
+  error,
 }: FormInputProps) => {
   const { data, updateField } = useFormData();
 
