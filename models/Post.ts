@@ -28,7 +28,7 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: [true, "Mission relation is required"],
   },
-  articleFile: { type: mongoose.Schema.Types.Mixed, required: true },
+  articleFile: { type: mongoose.Schema.Types.Mixed },
   signature: { type: String, required: [true, "Signature is required"] },
   questions: { type: String }, // Optional
 });

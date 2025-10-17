@@ -18,7 +18,7 @@ export const Step3Form = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       // Validate Step 1 fields only
@@ -41,6 +41,25 @@ export const Step3Form = () => {
 
       resetForm();
 
+      await fetch('/api/Posts/', { // Adjust endpoint as needed
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          submissionType: data.submissionType,
+          ideaDescription: data.ideaDescription,
+          motivation: data.motivation,
+          category: data.category,
+          missionResonance: data.missionResonance,
+          missionRelation: data.missionRelation,
+          articleFile: data.articleFile,
+          signature: data.signature,
+          questions: data.questions
+        }),
+      });
       //TODO: Add backend logic to send the submission to admin panel
     } catch (err) {
       if (err instanceof z.ZodError) {
