@@ -12,7 +12,5 @@ export async function POST(request: Request) {
     console.log("added");
     await dummy.save();
 
-    CloseConnection();
-
     return NextResponse.json({ data });
 }

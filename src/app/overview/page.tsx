@@ -52,12 +52,12 @@ export default async function Overview() {
                       </div>
                       <div className="md:flex-grow">
                         <h2 className="text-2xl font-medium text-gray-900 title-font mb-2">
-                          {}
+                          { }
                         </h2>
                         <p className="leading-relaxed">
                           {post.ideaDescription}
                         </p>
-                        <a className="text-indigo-500 inline-flex items-center mt-4">
+                        <a className="text-indigo-500 inline-flex items-center mt-4" href={`/overview/${post._id}`}>
                           More details
                         </a>
                       </div>
