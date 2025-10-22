@@ -1,16 +1,13 @@
-import { NextResponse } from 'next/server';
-import Post from '../../../../models/Post';
-import { CloseConnection, ConnectToDB } from '../../../../lib/dbConn';
+import Post from "@/models/Post";
+import { ConnectToDB } from "@/lib/dbConn";
 
 export async function POST(request: Request) {
-    const data = await request.json();
-    console.log(data);
+  const data = await request.json();
+  console.log(data);
 
-    ConnectToDB();
+  ConnectToDB();
 
-    const dummy = new Post(data);
-    console.log("added");
-    await dummy.save();
-
-    return NextResponse.json({ data });
+  const dummy = new Post(data);
+  console.log("added");
+  await dummy.save();
 }

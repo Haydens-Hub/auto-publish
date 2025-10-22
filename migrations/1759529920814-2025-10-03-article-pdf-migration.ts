@@ -1,6 +1,6 @@
 // Import your schemas here
 import type { Connection } from "mongoose";
-import Post from "../models/Post";
+import Post from "@/models/Post";
 import dotenv from "dotenv";
 dotenv.config();
 

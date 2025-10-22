@@ -6,14 +6,13 @@ import { useState } from "react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { SubmissionLayout } from "./SubmissionLayout";
-import Link from "next/link";
 import FormInput from "./FormInput";
 import { titles } from "@/constants/formConstants";
 import { Header } from "./Header";
 
 export const Step2Form = () => {
   const router = useRouter();
-  const { data, updateField } = useFormData();
+  const { data } = useFormData();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleSubmit = (e: React.FormEvent) => {

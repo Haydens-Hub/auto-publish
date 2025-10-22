@@ -1,5 +1,5 @@
-import { ConnectToDB, CloseConnection } from "../lib/dbConn";
-import Post from "../models/Post";
+import { ConnectToDB, CloseConnection } from "@/lib/dbConn";
+import Post from "@/models/Post";
 
 //This script will initialize a Post Collection on your local MongoDB connection
 //with one dummy post

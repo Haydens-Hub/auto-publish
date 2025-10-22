@@ -3,7 +3,7 @@
 import { useFormData } from "@/context/FormContext";
 import { Step3Schema } from "@/lib/formSchema";
 import { useState } from "react";
-import { set, z } from "zod";
+import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { SubmissionLayout } from "./SubmissionLayout";
 import Link from "next/link";
@@ -14,7 +14,7 @@ import ThankYou from "./ThankYou";
 
 export const Step3Form = () => {
   const router = useRouter();
-  const { data, updateField, resetForm } = useFormData();
+  const { data, resetForm } = useFormData();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -41,10 +41,11 @@ export const Step3Form = () => {
 
       resetForm();
 
-      await fetch('/api/Posts/', { // Adjust endpoint as needed
-        method: 'POST',
+      await fetch("/api/Posts/", {
+        // Adjust endpoint as needed
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: data.name,
@@ -57,7 +58,7 @@ export const Step3Form = () => {
           missionRelation: data.missionRelation,
           articleFile: data.articleFile,
           signature: data.signature,
-          questions: data.questions
+          questions: data.questions,
         }),
       });
       //TODO: Add backend logic to send the submission to admin panel

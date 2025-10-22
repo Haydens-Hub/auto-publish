@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import Post from "../models/Post";
+import Post from "@/models/Post";
 dotenv.config();
 //the global mongoose variable to cache
 declare global {
@@ -26,9 +26,6 @@ export const ConnectToDB = async () => {
   }
   //if the promise for the connection hasnt been created, then create it
   if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
-    };
     cached.promise = mongoose.connect(process.env.DB_CONNECTION_STRING!);
     return mongoose;
   }
@@ -40,8 +37,6 @@ export const ConnectToDB = async () => {
     throw e;
   }
   return cached.conn;
-
-
 };
 
 //script to close the connection

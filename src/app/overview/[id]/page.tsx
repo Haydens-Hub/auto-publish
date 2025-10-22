@@ -1,8 +1,8 @@
-import { ConnectToDB, getPostById } from "../../../../lib/dbConn";
+import { ConnectToDB, getPostById } from "@/lib/dbConn";
 {
   /*Set up Parameters, connnect to DB and fetch specific post*/
 }
-import { DeletePostButton } from "../../../components/DeletePostButton";
+import { DeletePostButton } from "@/components/DeletePostButton";
 type Params = { id: string };
 
 export default async function DetailsPage({ params }: { params: Params }) {
