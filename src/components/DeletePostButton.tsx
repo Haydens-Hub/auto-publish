@@ -8,12 +8,12 @@ export function DeletePostButton({ id }: { id: string }) {
 
   const removePost = async () => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/Posts/${id}`,
+      `/api/Posts/${id}`,
       { method: "DELETE" },
     );
     if (res.ok) {
       console.log("Post deleted successfully");
-      router.refresh();
+      router.push("/overview");
     }
   };
 
