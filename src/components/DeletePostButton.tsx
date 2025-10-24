@@ -20,7 +20,7 @@ export function DeletePostButton({ id }: { id: string }) {
   return (
     <button
       onClick={removePost}
-      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      className="rounded-md cursor-pointer bg-[#DF3F29] px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700"
     >
       Delete
     </button>
