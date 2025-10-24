@@ -3,6 +3,7 @@ import { ConnectToDB, getPostById } from "@/lib/dbConn";
   /*Set up Parameters, connnect to DB and fetch specific post*/
 }
 import { DeletePostButton } from "@/components/DeletePostButton";
+import { BackButton } from "@/components/BackButton";
 type Params = { id: string };
 
 export default async function DetailsPage({ params }: { params: Params }) {
@@ -77,12 +78,10 @@ export default async function DetailsPage({ params }: { params: Params }) {
                       })}
                     </dl>
                   </div>
-                  <div className="mt-8 pt-6 border-t border-gray-200">
-                    <div className="flex justify-end"></div>
-                  </div>
                 </div>
                 <div className="mt-8 pt-6 border-t border-gray-200">
-                  <div className="flex justify-end">
+                  <div className="flex justify-end gap-x-6">
+                    <BackButton />
                     <DeletePostButton id={post._id.toString()} />
                   </div>
                 </div>
@@ -90,8 +89,8 @@ export default async function DetailsPage({ params }: { params: Params }) {
             </section>
           }
         </div>
-      </main>
+      </main >
       {/* end of main content*/}
-    </div>
+    </div >
   );
 }
