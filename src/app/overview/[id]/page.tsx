@@ -17,6 +17,26 @@ export default async function DetailsPage({ params }: { params: Params }) {
     );
   }
 
+  type Field = {
+    label: string,
+    value: string, //needs to be updated for file support
+  };
+
+  const fields: Field[] = [
+    { label: "Name", value: post.name },
+    { label: "Email Address", value: post.email },
+    { label: "Submission Type", value: post.submissionType },
+    { label: "Idea Description", value: post.ideaDescription },
+    { label: "Motivation", value: post.motivation },
+    { label: "Draft File", value: "draft file placeholder" },
+    { label: "Category", value: post.category },
+    { label: "Mission Resonance", value: post.missionResonance },
+    { label: "Mission Relation", value: post.missionRelation },
+    { label: "Article File", value: "article file placeholder" },
+    { label: "Signature", value: post.signature },
+    { label: "Additional Questions", value: post.questions },
+  ];
+
   return (
     <div className="min-h-full">
       <nav className="bg-gray-800">
@@ -47,112 +67,14 @@ export default async function DetailsPage({ params }: { params: Params }) {
                   </div>
                   <div className="mt-6 border-t border-gray-100">
                     <dl className="divide-y divide-gray-100">
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          Name
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          {post.name}
-                        </dd>
-                      </div>
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          email address
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          : {post.email}
-                        </dd>
-                      </div>
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          Submission Type
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          {post.submissionType}
-                        </dd>
-                      </div>
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          Idea Description:
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          : {post.ideaDescription}
-                        </dd>
-                      </div>
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          Motivation
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          {post.motivation}
-                        </dd>
-                      </div>
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          Motivation
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          {post.motivation}
-                        </dd>
-                      </div>
-                      {/* Note:This display cannot handle files yet*/}
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          Draft File
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          {post.draftFile}
-                        </dd>
-                      </div>
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          Category
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          {post.category}
-                        </dd>
-                      </div>
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          Mission Resonance
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          {post.missionResonance}
-                        </dd>
-                      </div>
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          Mission Relation
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          {post.missionRelation}
-                        </dd>
-                      </div>
-                      {/*Note:this display cannot handle files yet */}
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          Article File
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          {post.articleFile}
-                        </dd>
-                      </div>
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          Signature
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          {post.signature}
-                        </dd>
-                      </div>
-                      <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm/6 font-medium text-gray-900">
-                          Additional Questions
-                        </dt>
-                        <dd className="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0">
-                          {post.questions}
-                        </dd>
-                      </div>
+                      {fields.map(({ label, value }) => {
+                        return (
+                          <div key={label} className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                            <dt className="text-sm font-medium text-gray-900">{label}</dt>
+                            <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">{value}</dd>
+                          </div>
+                        );
+                      })}
                     </dl>
                   </div>
                   <div className="mt-8 pt-6 border-t border-gray-200">
