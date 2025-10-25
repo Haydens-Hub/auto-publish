@@ -23,7 +23,7 @@ export const Step2Form = () => {
       Step2Schema.parse({
         ideaDescription: data.ideaDescription,
         motivation: data.motivation,
-        submissionType: data.submissionType,
+        draftFile: data.draftFile,
       });
       setErrors({});
       // Proceed to next step

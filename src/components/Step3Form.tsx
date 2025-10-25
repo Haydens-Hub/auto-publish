@@ -53,6 +53,7 @@ export const Step3Form = () => {
           submissionType: data.submissionType,
           ideaDescription: data.ideaDescription,
           motivation: data.motivation,
+          draftFile: data.draftFile,
           category: data.category,
           missionResonance: data.missionResonance,
           missionRelation: data.missionRelation,

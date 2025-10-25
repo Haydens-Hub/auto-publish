@@ -9,7 +9,7 @@ type FormData = {
   submissionType: "pitch" | "draft" | ""; // radio/select
   ideaDescription: string;
   motivation: string;
-  draftFile?: File | null; // optional file upload
+  draftFile: File | null; // optional file upload
   category: "academic" | "youth" | "creative" | "advocacy" | "community" | "";
   missionResonance: string;
   missionRelation: string;
