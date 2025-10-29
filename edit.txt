@@ -1,0 +1,34 @@
+else{
+      if (!post.draftFile) {
+      return new NextResponse('Draft file not found', { status: 404 });
+    }
+    console.log(post.draftFile);
+    const fileData=post.draftFile.data;
+    const fileName=post.draftFile.filename || 'draft-download';
+    const contentType=post.draftFile.contentType || 'application/octet-stream';
+
+    let fileBuffer: Buffer;
+
+        if (Buffer.isBuffer(fileData)) {
+      fileBuffer = fileData;
+    } else if (fileData instanceof ArrayBuffer) {
+      fileBuffer = Buffer.from(fileData);
+    } else if (typeof fileData === 'object' && fileData.buffer) {
+      fileBuffer = Buffer.from(fileData.buffer);
+    } else {
+      fileBuffer = Buffer.from(fileData);
+    }
+
+    const headers = new Headers();
+    headers.set('Content-Disposition', `attachment; filename="${fileName}"`);
+    headers.set('Content-Type', contentType);
+    headers.set('Content-Length', fileBuffer.length.toString());
+    headers.set('Cache-Control', 'no-cache');
+  
+
+    const bufferResponse=new Uint8Array(fileBuffer);
+      return new NextResponse(bufferResponse, {
+      status: 200,
+      headers: headers,
+    });
+}

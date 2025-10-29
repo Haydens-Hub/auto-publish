@@ -4,6 +4,7 @@ import { ConnectToDB, getPostById } from "@/lib/dbConn";
 }
 import { DeletePostButton } from "@/components/DeletePostButton";
 import { BackButton } from "@/components/BackButton";
+import { DownloadArticle } from "@/components/DownloadArticle";
 type Params = { id: string };
 
 export default async function DetailsPage({ params }: { params: Params }) {
@@ -68,14 +69,38 @@ export default async function DetailsPage({ params }: { params: Params }) {
                   </div>
                   <div className="mt-6 border-t border-gray-100">
                     <dl className="divide-y divide-gray-100">
-                      {fields.map(({ label, value }) => {
-                        return (
-                          <div key={label} className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                            <dt className="text-sm font-medium text-gray-900">{label}</dt>
-                            <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">{value}</dd>
-                          </div>
-                        );
-                      })}
+{fields.map(({ label, value }) => {
+  if (label === "articleFile") {
+    // handle downloading for articleFile
+    return (
+      <div key={label} className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt className="text-sm font-medium text-gray-900">{label}</dt>
+        <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+          <DownloadArticle id={post._id.toString()} filetype="articleFile" />
+        </dd>
+      </div>
+    );
+  } else if (label === "draftFile") {
+    // handle downloading for draftFile
+    return (
+      <div key={label} className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt className="text-sm font-medium text-gray-900">{label}</dt>
+        <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+          <DownloadArticle id={post._id.toString()} filetype="draftFile" />
+        </dd>
+      </div>
+    );
+  }
+  
+  // Default render for other fields
+  return (
+    <div key={label} className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+      <dt className="text-sm font-medium text-gray-900">{label}</dt>
+      <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">{value}</dd>
+    </div>
+  );
+})}
+
                     </dl>
                   </div>
                 </div>
