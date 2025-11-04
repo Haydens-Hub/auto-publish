@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/vnd.contentful.management.v1+json",
-          "X-Contentful-Content-Type": "Submission",
+          "X-Contentful-Content-Type": "submission",
         },
         body: JSON.stringify({
           fields: {
