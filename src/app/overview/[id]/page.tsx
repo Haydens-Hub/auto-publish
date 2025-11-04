@@ -70,7 +70,7 @@ export default async function DetailsPage({ params }: { params: Params }) {
                   <div className="mt-6 border-t border-gray-100">
                     <dl className="divide-y divide-gray-100">
 {fields.map(({ label, value }) => {
-  if (label === "articleFile") {
+  if (label === "Article File") {
     // handle downloading for articleFile
     return (
       <div key={label} className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -80,7 +80,7 @@ export default async function DetailsPage({ params }: { params: Params }) {
         </dd>
       </div>
     );
-  } else if (label === "draftFile") {
+  } else if (label === "Draft File") {
     // handle downloading for draftFile
     return (
       <div key={label} className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
