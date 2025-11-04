@@ -41,7 +41,7 @@ export const Step3Form = () => {
 
       resetForm();
 
-      await fetch("/api/Posts/", {
+      await fetch("/api/contentful/publish", {
         // Adjust endpoint as needed
         method: "POST",
         headers: {
@@ -62,6 +62,7 @@ export const Step3Form = () => {
           questions: data.questions,
         }),
       });
+
       //TODO: Add backend logic to send the submission to admin panel
     } catch (err) {
       if (err instanceof z.ZodError) {
