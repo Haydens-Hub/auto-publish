@@ -7,10 +7,7 @@ export function DeletePostButton({ id }: { id: string }) {
   const router = useRouter();
 
   const removePost = async () => {
-    const res = await fetch(
-      `/api/Posts/${id}`,
-      { method: "DELETE" },
-    );
+    const res = await fetch(`/api/Posts/${id}`, { method: "DELETE" });
     if (res.ok) {
       console.log("Post deleted successfully");
       router.push("/overview");

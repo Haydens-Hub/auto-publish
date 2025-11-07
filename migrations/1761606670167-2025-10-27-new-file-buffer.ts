@@ -19,11 +19,12 @@ const dummy = {
   category: "academic",
   missionResonance: "lorem ipsum",
   missionRelation: "lorem ipsum",
-  articleFile:{ 
+  articleFile: {
     data: samplePdfBuffer,
     filename: "article.pdf",
     contentType: "application/pdf",
-    format:"buffer",}, // PDF buffer!
+    format: "buffer",
+  }, // PDF buffer!
   signature: "lorem ipsum",
   questions: "lorem ipsum",
 };

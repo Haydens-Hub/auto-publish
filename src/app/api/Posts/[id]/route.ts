@@ -1,24 +1,29 @@
+import { NextRequest, NextResponse } from "next/server";
 import { ConnectToDB } from "@/lib/dbConn";
 import Post from "@/models/Post";
 import mongoose from "mongoose";
 
+
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } },
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await params;
+  //get ID and connect to DB
+  const { id } = params;
   await ConnectToDB();
   try {
+    //find and delete post by ID, then return response
     const deletedpost = await Post.findByIdAndDelete(
-      new mongoose.Types.ObjectId(id),
+      new mongoose.Types.ObjectId(id)
     );
     if (!deletedpost) {
-      return new Response(JSON.stringify({ success: false }), { status: 404 });
+      return NextResponse.json({ success: false }, { status: 404 });
     }
-    return new Response(JSON.stringify({ success: true, data: deletedpost }), {
-      status: 200,
-    });
+    return NextResponse.json(
+      { success: true, data: deletedpost },
+      { status: 200 }
+    );
   } catch {
-    return new Response(JSON.stringify({ success: false }), { status: 500 });
+    return NextResponse.json({ success: false }, { status: 500 });
   }
 }

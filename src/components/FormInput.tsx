@@ -47,9 +47,13 @@ const FormInput = ({
         <label className="flex flex-row font-semibold">{title}</label>
         <input
           type="file"
-          onChange={(e) =>
-            updateField(formDataAttr as keyof typeof data, e.target.value)
-          }
+          onChange={(e) => {
+            const file =
+              e.target.files && e.target.files.length > 0
+                ? e.target.files[0]
+                : null;
+            updateField(formDataAttr as keyof typeof data, file);
+          }}
           className="block w-full text-sm cursor-pointer text-gray-600
                                 file:mr-4 file:py-2 file:px-4
                                 file:rounded-lg file:border-0

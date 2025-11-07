@@ -23,14 +23,23 @@ export const Step3Form = () => {
     try {
       // Validate Step 1 fields only
       console.log(data);
-      Step3Schema.parse({
-        category: data.category,
-        missionResonance: data.missionResonance,
-        missionRelation: data.missionRelation,
-        articleFile: data.articleFile,
-        signature: data.signature,
-        questions: data.questions,
-      });
+      //initialize formdata object
+      const formDataToSend = new FormData();
+      // append all non-file fields
+      formDataToSend.append("name", data.name);
+      formDataToSend.append("email", data.email);
+      formDataToSend.append("submissionType", data.submissionType);
+      formDataToSend.append("ideaDescription", data.ideaDescription);
+      formDataToSend.append("motivation", data.motivation);
+      formDataToSend.append("category", data.category);
+      formDataToSend.append("missionResonance", data.missionResonance);
+      formDataToSend.append("missionRelation", data.missionRelation);
+      formDataToSend.append("signature", data.signature);
+      formDataToSend.append("questions", data.questions);
+      // append files (only if present)
+      if (data.articleFile)
+        formDataToSend.append("articleFile", data.articleFile);
+      if (data.draftFile) formDataToSend.append("draftFile", data.draftFile);
       setErrors({});
       setIsSubmitted(true);
 
@@ -44,25 +53,9 @@ export const Step3Form = () => {
       await fetch("/api/Posts/", {
         // Adjust endpoint as needed
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          submissionType: data.submissionType,
-          ideaDescription: data.ideaDescription,
-          motivation: data.motivation,
-          draftFile: data.draftFile,
-          category: data.category,
-          missionResonance: data.missionResonance,
-          missionRelation: data.missionRelation,
-          articleFile: data.articleFile,
-          signature: data.signature,
-          questions: data.questions,
-        }),
+        body: formDataToSend,
       });
-      //TODO: Add backend logic to send the submission to admin panel
+
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};

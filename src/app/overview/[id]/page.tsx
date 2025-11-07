@@ -20,8 +20,8 @@ export default async function DetailsPage({ params }: { params: Params }) {
   }
 
   type Field = {
-    label: string,
-    value: string, //needs to be updated for file support
+    label: string;
+    value: string; //needs to be updated for file support
   };
 
   const fields: Field[] = [
@@ -69,38 +69,60 @@ export default async function DetailsPage({ params }: { params: Params }) {
                   </div>
                   <div className="mt-6 border-t border-gray-100">
                     <dl className="divide-y divide-gray-100">
-{fields.map(({ label, value }) => {
-  if (label === "articleFile") {
-    // handle downloading for articleFile
-    return (
-      <div key={label} className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt className="text-sm font-medium text-gray-900">{label}</dt>
-        <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-          <DownloadArticle id={post._id.toString()} filetype="articleFile" />
-        </dd>
-      </div>
-    );
-  } else if (label === "draftFile") {
-    // handle downloading for draftFile
-    return (
-      <div key={label} className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-        <dt className="text-sm font-medium text-gray-900">{label}</dt>
-        <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
-          <DownloadArticle id={post._id.toString()} filetype="draftFile" />
-        </dd>
-      </div>
-    );
-  }
-  
-  // Default render for other fields
-  return (
-    <div key={label} className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-      <dt className="text-sm font-medium text-gray-900">{label}</dt>
-      <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">{value}</dd>
-    </div>
-  );
-})}
+                      {fields.map(({ label, value }) => {
+                        if (label === "Article File") {
+                          // handle downloading for articleFile
+                          return (
+                            <div
+                              key={label}
+                              className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
+                            >
+                              <dt className="text-sm font-medium text-gray-900">
+                                {label}
+                              </dt>
+                              <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+                                <DownloadArticle
+                                  id={post._id.toString()}
+                                  filetype="articleFile"
+                                />
+                              </dd>
+                            </div>
+                          );
+                        } else if (label === "Draft File") {
+                          // handle downloading for draftFile
+                          return (
+                            <div
+                              key={label}
+                              className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
+                            >
+                              <dt className="text-sm font-medium text-gray-900">
+                                {label}
+                              </dt>
+                              <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+                                <DownloadArticle
+                                  id={post._id.toString()}
+                                  filetype="draftFile"
+                                />
+                              </dd>
+                            </div>
+                          );
+                        }
 
+                        // Default render for other fields
+                        return (
+                          <div
+                            key={label}
+                            className="x-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
+                          >
+                            <dt className="text-sm font-medium text-gray-900">
+                              {label}
+                            </dt>
+                            <dd className="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0">
+                              {value}
+                            </dd>
+                          </div>
+                        );
+                      })}
                     </dl>
                   </div>
                 </div>
@@ -114,8 +136,8 @@ export default async function DetailsPage({ params }: { params: Params }) {
             </section>
           }
         </div>
-      </main >
+      </main>
       {/* end of main content*/}
-    </div >
+    </div>
   );
 }
