@@ -9,11 +9,14 @@ type FormData = {
   submissionType: "pitch" | "draft" | ""; // radio/select
   ideaDescription: string;
   motivation: string;
-  draftFile?: File | null; // optional file upload
+  draftFile: File | null; // optional file upload
   category: "academic" | "youth" | "creative" | "advocacy" | "community" | "";
   missionResonance: string;
   missionRelation: string;
   articleFile: File | null;
+  references: string;
+  abstract: string;
+  shortblurb: string;
   signature: string;
   questions: string;
 };
@@ -41,6 +44,9 @@ export function FormProvider({ children }: { children: ReactNode }) {
     missionResonance: "",
     missionRelation: "",
     articleFile: null,
+    references: "",
+    abstract: "",
+    shortblurb: "",
     signature: "",
     questions: "",
   });
@@ -61,6 +67,9 @@ export function FormProvider({ children }: { children: ReactNode }) {
       missionResonance: "",
       missionRelation: "",
       articleFile: null,
+      references: "",
+      abstract: "",
+      shortblurb: "",
       signature: "",
       questions: "",
     });

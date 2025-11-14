@@ -3,7 +3,7 @@
 import { useFormData } from "@/context/FormContext";
 import { Step3Schema } from "@/lib/formSchema";
 import { useState } from "react";
-import { set, z } from "zod";
+import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { SubmissionLayout } from "./SubmissionLayout";
 import Link from "next/link";
@@ -14,23 +14,35 @@ import ThankYou from "./ThankYou";
 
 export const Step3Form = () => {
   const router = useRouter();
-  const { data, updateField, resetForm } = useFormData();
+  const { data, resetForm } = useFormData();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       // Validate Step 1 fields only
       console.log(data);
-      Step3Schema.parse({
-        category: data.category,
-        missionResonance: data.missionResonance,
-        missionRelation: data.missionRelation,
-        articleFile: data.articleFile,
-        signature: data.signature,
-        questions: data.questions,
-      });
+      //initialize formdata object
+      const formDataToSend = new FormData();
+      // append all non-file fields
+      formDataToSend.append("name", data.name);
+      formDataToSend.append("email", data.email);
+      formDataToSend.append("submissionType", data.submissionType);
+      formDataToSend.append("ideaDescription", data.ideaDescription);
+      formDataToSend.append("motivation", data.motivation);
+      formDataToSend.append("category", data.category);
+      formDataToSend.append("missionResonance", data.missionResonance);
+      formDataToSend.append("missionRelation", data.missionRelation);
+      formDataToSend.append("signature", data.signature);
+      formDataToSend.append("questions", data.questions);
+      formDataToSend.append("references", data.references);
+      formDataToSend.append("abstract", data.abstract);
+      formDataToSend.append("shortblurb", data.shortblurb);
+      // append files (only if present)
+      if (data.articleFile)
+        formDataToSend.append("articleFile", data.articleFile);
+      if (data.draftFile) formDataToSend.append("draftFile", data.draftFile);
       setErrors({});
       setIsSubmitted(true);
 
@@ -41,7 +53,12 @@ export const Step3Form = () => {
 
       resetForm();
 
-      //TODO: Add backend logic to send the submission to admin panel
+      await fetch("/api/Posts/", {
+        // Adjust endpoint as needed
+        method: "POST",
+        body: formDataToSend,
+      });
+
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
@@ -56,9 +73,7 @@ export const Step3Form = () => {
   };
 
   if (isSubmitted) {
-    return (
-      <ThankYou />
-    );
+    return <ThankYou />;
   }
 
   return (
@@ -69,7 +84,7 @@ export const Step3Form = () => {
       }}
     >
       <div className="border-b border-gray-900/10 pb-12">
-        <Header/>
+        <Header />
 
         {/* Step 3 Inputs */}
         <div className="flex flex-col justify-start items-start gap-2 mt-8 w-full max-w-2xl mx-auto">
@@ -123,6 +138,33 @@ export const Step3Form = () => {
             formDataAttr="articleFile"
             title={titles.articleFile}
             error={errors.articleFile}
+          />
+          {/* References*/}
+          <FormInput
+            type="text"
+            placeholder="Your Answer"
+            formDataAttr="references"
+            required
+            title={titles.references}
+            error={errors.references}
+          />
+          {/* Abstract*/}
+          <FormInput
+            type="text"
+            placeholder="Your Answer"
+            formDataAttr="abstract"
+            required
+            title={titles.abstract}
+            error={errors.abstract}
+          />
+          {/* Short Blurb*/}
+          <FormInput
+            type="text"
+            placeholder="Your Answer"
+            formDataAttr="shortblurb"
+            required
+            title={titles.shortblurb}
+            error={errors.shortblurb}
           />
 
           {/* Signature */}

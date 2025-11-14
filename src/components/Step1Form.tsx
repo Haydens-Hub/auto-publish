@@ -13,7 +13,7 @@ import { Header } from "./Header";
 
 export const Step1Form = () => {
   const router = useRouter();
-  const { data, updateField } = useFormData();
+  const { data } = useFormData();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleSubmit = (e: React.FormEvent) => {

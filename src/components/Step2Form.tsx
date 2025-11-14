@@ -6,14 +6,13 @@ import { useState } from "react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { SubmissionLayout } from "./SubmissionLayout";
-import Link from "next/link";
 import FormInput from "./FormInput";
 import { titles } from "@/constants/formConstants";
 import { Header } from "./Header";
 
 export const Step2Form = () => {
   const router = useRouter();
-  const { data, updateField } = useFormData();
+  const { data } = useFormData();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -24,7 +23,7 @@ export const Step2Form = () => {
       Step2Schema.parse({
         ideaDescription: data.ideaDescription,
         motivation: data.motivation,
-        submissionType: data.submissionType,
+        draftFile: data.draftFile,
       });
       setErrors({});
       // Proceed to next step
@@ -50,7 +49,7 @@ export const Step2Form = () => {
       }}
     >
       <div className="border-b border-gray-900/10 pb-12">
-        <Header/>
+        <Header />
 
         {/* Step 1 Inputs */}
         <div className="flex flex-col justify-start items-start gap-2 mt-8 w-full max-w-2xl mx-auto">
