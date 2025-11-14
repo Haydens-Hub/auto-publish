@@ -5,11 +5,11 @@ import { buffer } from "stream/consumers";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string; filetype: string } }
+  { params }: { params: Promise<{ id: string; filetype: string }> }
 )
  {
   try {
-    const { id, filetype } = params;
+    const { id, filetype } = await params;
     await ConnectToDB();
     const post = await Post.findById(id);
     if (!post) {
