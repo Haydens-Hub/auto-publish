@@ -14,6 +14,9 @@ type FormData = {
   missionResonance: string;
   missionRelation: string;
   articleFile: File | null;
+  references: string;
+  abstract: string;
+  shortblurb: string;
   signature: string;
   questions: string;
 };
@@ -41,6 +44,9 @@ export function FormProvider({ children }: { children: ReactNode }) {
     missionResonance: "",
     missionRelation: "",
     articleFile: null,
+    references: "",
+    abstract: "",
+    shortblurb: "",
     signature: "",
     questions: "",
   });
@@ -61,6 +67,9 @@ export function FormProvider({ children }: { children: ReactNode }) {
       missionResonance: "",
       missionRelation: "",
       articleFile: null,
+      references: "",
+      abstract: "",
+      shortblurb: "",
       signature: "",
       questions: "",
     });

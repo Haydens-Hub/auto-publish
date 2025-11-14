@@ -12,6 +12,10 @@ export interface Posts extends mongoose.Document {
   category: string;
   missionResonance: string;
   missionRelation: string;
+  title: string;
+  references: string;
+  abstract: string;
+  shortblurb: string;
   articleFile: any;
   signature: string;
   questions: string;
@@ -45,6 +49,10 @@ const PostSchema = new mongoose.Schema<Posts>({
     type: String,
     required: [true, "Mission relation is required"],
   },
+  title: { type: String, required: [true, "Title is required"] },
+  references: { type: String, required: [true, "References are required"] },
+  abstract: { type: String, required: [true, "Abstract is required"] },
+  shortblurb: { type: String, required: [true, "Short blurb is required"] },
   articleFile: { type: mongoose.Schema.Types.Mixed },
   signature: { type: String, required: [true, "Signature is required"] },
   questions: { type: String }, // Optional

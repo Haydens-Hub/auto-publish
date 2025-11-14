@@ -5,6 +5,7 @@ import { fileToBuffer } from "@/lib/fileToBuffer";
 
 export async function POST(request: NextRequest) {
   try {
+    //get form data and convert files to buffers
     const data = await request.formData();
     const articlefile = data.get("articleFile") as File | null;
     const draftFile = data.get("draftFile") as File | null;
@@ -28,7 +29,12 @@ export async function POST(request: NextRequest) {
     const signature = data.get("signature")?.toString() || "";
     const questions = data.get("questions")?.toString() || "";
     const date = new Date();
-
+    //generate title from article file name if available
+    const title: string = articleFileBuffer ? articleFileBuffer.filename.split(".").slice(0, -1).join(".") : "Article";
+    const references: string = data.get("references")?.toString() || "";
+    const abstract: string = data.get("abstract")?.toString() || "";
+    const shortblurb: string = data.get("shortblurb")?.toString() || "";
+    //create new post
     const post = new Post({
       name,
       email,
@@ -43,8 +49,11 @@ export async function POST(request: NextRequest) {
       questions,
       articleFile: articleFileBuffer || null,
       draftFile: draftFileBuffer || null,
+      title,
+      references,
+      abstract,
     });
-
+    //save post
     await post.save();
 
     return NextResponse.json(

@@ -35,6 +35,10 @@ export default async function DetailsPage({ params }: { params: Params }) {
     { label: "Mission Resonance", value: post.missionResonance },
     { label: "Mission Relation", value: post.missionRelation },
     { label: "Article File", value: "article file placeholder" },
+    { label: "Title", value: post.title },
+    { label: "References", value: post.references },
+    { label: "Abstract", value: post.abstract },
+    { label: "Short Blurb", value: post.shortblurb },
     { label: "Signature", value: post.signature },
     { label: "Additional Questions", value: post.questions },
   ];

@@ -36,6 +36,9 @@ export const Step3Form = () => {
       formDataToSend.append("missionRelation", data.missionRelation);
       formDataToSend.append("signature", data.signature);
       formDataToSend.append("questions", data.questions);
+      formDataToSend.append("references", data.references);
+      formDataToSend.append("abstract", data.abstract);
+      formDataToSend.append("shortblurb", data.shortblurb);
       // append files (only if present)
       if (data.articleFile)
         formDataToSend.append("articleFile", data.articleFile);
@@ -135,6 +138,33 @@ export const Step3Form = () => {
             formDataAttr="articleFile"
             title={titles.articleFile}
             error={errors.articleFile}
+          />
+          {/* References*/}
+          <FormInput
+            type="text"
+            placeholder="Your Answer"
+            formDataAttr="references"
+            required
+            title={titles.references}
+            error={errors.references}
+          />
+          {/* Abstract*/}
+          <FormInput
+            type="text"
+            placeholder="Your Answer"
+            formDataAttr="abstract"
+            required
+            title={titles.abstract}
+            error={errors.abstract}
+          />
+          {/* Short Blurb*/}
+          <FormInput
+            type="text"
+            placeholder="Your Answer"
+            formDataAttr="shortblurb"
+            required
+            title={titles.shortblurb}
+            error={errors.shortblurb}
           />
 
           {/* Signature */}
