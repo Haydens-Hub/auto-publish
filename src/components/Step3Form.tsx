@@ -1,7 +1,6 @@
 "use client";
 
 import { useFormData } from "@/context/FormContext";
-import { Step3Schema } from "@/lib/formSchema";
 import { useState } from "react";
 import { z } from "zod";
 import { useRouter } from "next/navigation";

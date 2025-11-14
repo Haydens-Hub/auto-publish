@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ConnectToDB } from "@/lib/dbConn";
 import Post from "@/models/Post";
-import { buffer } from "stream/consumers";
 
 export async function GET(
   request: NextRequest,
