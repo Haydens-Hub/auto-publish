@@ -11,10 +11,13 @@ export const titles = {
     "Why does the mission of Hayden's Hub resonate with you? Tell us about yourself and your motivation to share your work. ",
   missionRelation:
     "Briefly explain how your article relates to the Hayden's Hub mission.",
-  articleFile: "Attach your article draft, make sure the file name is the title of your article.",
-  references:"Please list any references, sources, or citations used in your article.",
+  articleFile:
+    "Attach your article draft, make sure the file name is the title of your article.",
+  references:
+    "Please list any references, sources, or citations used in your article.",
   abstract: "Provide a brief abstract summarizing your article.",
-  shortblurb: "Provide a short blurb (2-3 sentences) that summarizes your article for promotional purposes.",
+  shortblurb:
+    "Provide a short blurb (2-3 sentences) that summarizes your article for promotional purposes.",
   signature:
     "By signing your name along with the date, you are hereby agreeing to the 'Hayden's Journal- Privacy & Disclosure Agreement'",
   questions: "Do you have any questions or concerns?",

@@ -4,9 +4,8 @@ import Post from "@/models/Post";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string; filetype: string }> }
-)
- {
+  { params }: { params: Promise<{ id: string; filetype: string }> },
+) {
   try {
     const { id, filetype } = await params;
     await ConnectToDB();
@@ -20,7 +19,7 @@ export async function GET(
     if (!file) {
       return new NextResponse(
         `${filetype === "articleFile" ? "Article" : "Draft"} file not found`,
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -53,7 +52,6 @@ export async function GET(
       status: 200,
       headers: headers,
     });
-      
   } catch (e) {
     console.error("Error downloading article file:", e);
     return new NextResponse("Internal Server Error", { status: 500 });

@@ -39,7 +39,8 @@ export function DownloadArticle({ id, filetype }: DownloadArticleProps) {
   };
 
   // Set the display label based on filetype
-  const buttonLabel = filetype === "draftFile" ? "Download Draft File" : "Download Article File";
+  const buttonLabel =
+    filetype === "draftFile" ? "Download Draft File" : "Download Article File";
 
   return (
     <button
@@ -47,9 +48,7 @@ export function DownloadArticle({ id, filetype }: DownloadArticleProps) {
       onClick={downloadFile}
       disabled={loading}
     >
-      <span className="text-blue-600 hover:underline">
-        {buttonLabel}
-      </span>
+      <span className="text-blue-600 hover:underline">{buttonLabel}</span>
       {loading && " (Loading...)"}
       {error && <span className="text-red-500 ml-2">{error}</span>}
     </button>

@@ -3,10 +3,9 @@ import { ConnectToDB } from "@/lib/dbConn";
 import Post from "@/models/Post";
 import mongoose from "mongoose";
 
-
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   //get ID and connect to DB
   const { id } = await params;
@@ -14,14 +13,14 @@ export async function DELETE(
   try {
     //find and delete post by ID, then return response
     const deletedpost = await Post.findByIdAndDelete(
-      new mongoose.Types.ObjectId(id)
+      new mongoose.Types.ObjectId(id),
     );
     if (!deletedpost) {
       return NextResponse.json({ success: false }, { status: 404 });
     }
     return NextResponse.json(
       { success: true, data: deletedpost },
-      { status: 200 }
+      { status: 200 },
     );
   } catch {
     return NextResponse.json({ success: false }, { status: 500 });

@@ -5,6 +5,7 @@ import { ConnectToDB, getPostById } from "@/lib/dbConn";
 import { DeletePostButton } from "@/components/DeletePostButton";
 import { BackButton } from "@/components/BackButton";
 import { DownloadArticle } from "@/components/DownloadArticle";
+import { PublishPostButton } from "@/components/PublishPostButton";
 type Params = { id: string };
 
 export default async function DetailsPage({ params }: { params: Params }) {
@@ -134,6 +135,7 @@ export default async function DetailsPage({ params }: { params: Params }) {
                   <div className="flex justify-end gap-x-6">
                     <BackButton />
                     <DeletePostButton id={post._id.toString()} />
+                    <PublishPostButton id={post._id.toString()} />
                   </div>
                 </div>
               </div>

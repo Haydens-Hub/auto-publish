@@ -57,7 +57,6 @@ export const Step3Form = () => {
         method: "POST",
         body: formDataToSend,
       });
-
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};

@@ -30,7 +30,9 @@ export async function POST(request: NextRequest) {
     const questions = data.get("questions")?.toString() || "";
     const date = new Date();
     //generate title from article file name if available
-    const title: string = articleFileBuffer ? articleFileBuffer.filename.split(".").slice(0, -1).join(".") : "Article";
+    const title: string = articleFileBuffer
+      ? articleFileBuffer.filename.split(".").slice(0, -1).join(".")
+      : "Article";
     const references: string = data.get("references")?.toString() || "";
     const abstract: string = data.get("abstract")?.toString() || "";
     const shortblurb: string = data.get("shortblurb")?.toString() || "";
@@ -59,13 +61,13 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       { message: "Post created successfully" },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (e) {
     console.log(e);
     return NextResponse.json(
       { message: "Failed to create post" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
