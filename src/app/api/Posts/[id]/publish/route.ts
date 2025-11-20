@@ -6,7 +6,74 @@ import { richTextFromMarkdown } from "@contentful/rich-text-from-markdown";
 const CONTENTFUL_SPACE_ID = process.env.CONTENTFUL_SPACE_ID!;
 const CONTENTFUL_ENVIRONMENT = process.env.CONTENTFUL_ENVIRONMENT || "master";
 const CONTENTFUL_CMA_TOKEN = process.env.CONTENTFUL_CMA_TOKEN!;
+const UPLOAD_URL = `https://upload.contentful.com/spaces/${CONTENTFUL_SPACE_ID}`;
 const BASE_URL = `https://api.contentful.com/spaces/${CONTENTFUL_SPACE_ID}/environments/${CONTENTFUL_ENVIRONMENT}`;
+
+async function uploadPDFToContentful(fileBuffer: Buffer, fileName: string) {
+  const uploadRes = await fetch(`${UPLOAD_URL}/uploads`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${CONTENTFUL_CMA_TOKEN}`,
+      "Content-Type": "application/octet-stream",
+    },
+    body: new Uint8Array(fileBuffer),
+  });
+
+  if (!uploadRes.ok) {
+    const errText = await uploadRes.text();
+    throw new Error(`Entry creation failed: ${errText}`);
+  }
+
+  const upload = await uploadRes.json();
+
+  const createAssetRes = await fetch(`${BASE_URL}/assets`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${CONTENTFUL_CMA_TOKEN}`,
+    },
+    body: JSON.stringify({
+      fields: {
+        title: { "en-US": fileName },
+        file: {
+          "en-US": {
+            contentType: "application/pdf",
+            fileName: fileName,
+            uploadFrom: {
+              sys: {
+                type: "Link",
+                linkType: "Upload",
+                id: upload.sys.id,
+              },
+            },
+          },
+        },
+      },
+    }),
+  });
+
+  if (!createAssetRes.ok) {
+    const errText = await createAssetRes.text();
+    throw new Error(`Entry creation failed: ${errText}`);
+  }
+
+  const asset = await createAssetRes.json();
+  const assetId = asset.sys.id;
+
+  const processRes = await fetch(`${BASE_URL}/assets/${assetId}/files/en-US/process`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${CONTENTFUL_CMA_TOKEN}`,
+      "X-Contentful-Version": asset.sys.version.toString(),
+    },
+  });
+
+  if (!processRes.ok) {
+    const errText = await processRes.text();
+    throw new Error(`Entry creation failed: ${errText}`);
+  }
+
+  return assetId;
+}
 
 export async function POST(
   request: NextRequest,
@@ -16,9 +83,11 @@ export async function POST(
   await ConnectToDB();
   const { id } = await params;
   const post = await getPostById(id);
-  const pdfBuffer = post.articleFile;
-  const markdownText = await pdf2md(pdfBuffer.data.buffer);
-  const richText = await richTextFromMarkdown(markdownText);
+  const markdownText = await pdf2md(post.articleFile.data.buffer);
+  const mainContentRichText = await richTextFromMarkdown(markdownText);
+  const referencesRichText = await richTextFromMarkdown(post.references);
+
+  const assetId = await uploadPDFToContentful(post.articleFile.data.buffer, post.articleFile.filename);
 
   const createRes = await fetch(`${BASE_URL}/entries`, {
     method: "POST",
@@ -29,12 +98,22 @@ export async function POST(
     },
     body: JSON.stringify({
       fields: {
-        title: { "en-US": pdfBuffer.filename },
+        title: { "en-US": post.title },
         publishedDate: { "en-US": new Date().toISOString() },
-        mainContent: { "en-US": richText },
+        mainContent: { "en-US": mainContentRichText },
         categoryType: { "en-US": post.category },
         shortBlurb: { "en-US": post.shortBlurb },
         abstract: { "en-US": post.abstract },
+        references: { "en-US": referencesRichText },
+        pdf: {
+          "en-US": {
+            sys: {
+              type: "Link",
+              linkType: "Asset",
+              id: assetId,
+            },
+          },
+        },
       },
     }),
   });
@@ -42,7 +121,6 @@ export async function POST(
   console.log("Create response status:", createRes.status);
   if (!createRes.ok) {
     const errText = await createRes.text();
-    console.error("Entry creation failed:", errText);
     throw new Error(`Entry creation failed: ${errText}`);
   }
   const entry = await createRes.json();
