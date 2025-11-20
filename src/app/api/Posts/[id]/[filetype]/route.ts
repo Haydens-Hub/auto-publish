@@ -2,13 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { ConnectToDB } from "@/lib/dbConn";
 import Post from "@/models/Post";
 import { buffer } from "stream/consumers";
-
+import {auth} from "@/auth"
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string; filetype: string } }
 )
- {
+ {  //authentication
+    const session = await auth();
+    if (!session) {
+      return new NextResponse("Unauthorized", { status: 401 })
+    }
+
+
   try {
+    //get post
     const { id, filetype } = params;
     await ConnectToDB();
     const post = await Post.findById(id);
@@ -24,7 +31,7 @@ export async function GET(
         { status: 404 }
       );
     }
-
+    //get the file
     const fileData = file.data;
     const fileName = file.filename || `${filetype}-download`;
     const contentType = file.contentType || "application/octet-stream";

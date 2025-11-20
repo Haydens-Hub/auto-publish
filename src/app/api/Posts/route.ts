@@ -2,8 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import Post from "@/models/Post";
 import { ConnectToDB } from "@/lib/dbConn";
 import { fileToBuffer } from "@/lib/fileToBuffer";
-
+import {auth } from "@/auth";
 export async function POST(request: NextRequest) {
+  //authorization  
+  const session = await auth();
+  if (!session) {
+    return new NextResponse("Unauthorized", { status: 401 })
+  }
   try {
     //get form data and convert files to buffers
     const data = await request.formData();

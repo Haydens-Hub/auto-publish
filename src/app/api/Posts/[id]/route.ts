@@ -2,12 +2,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { ConnectToDB } from "@/lib/dbConn";
 import Post from "@/models/Post";
 import mongoose from "mongoose";
-
+import { auth } from "@/auth";
 
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
+    const session = await auth();
+    if (!session) {
+      return new NextResponse("Unauthorized", { status: 401 })
+    }
   //get ID and connect to DB
   const { id } = params;
   await ConnectToDB();
