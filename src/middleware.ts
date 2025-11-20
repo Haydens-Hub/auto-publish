@@ -18,7 +18,9 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next()
 }
 
-
+//protected routes
 export const config = {
-  matcher: "/overview",
+  matcher:[ "/overview",
+  "/overview/:id*",
+  "/overview/:id/:filetype*"]
 }

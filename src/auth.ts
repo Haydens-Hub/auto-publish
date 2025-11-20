@@ -2,12 +2,14 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  //the google provider
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  //to handle sessions
   session: { strategy: "jwt" },
   callbacks: {
     async jwt({ token, account }) {
