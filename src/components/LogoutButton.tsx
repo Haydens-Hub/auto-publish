@@ -10,7 +10,7 @@ export const LogoutButton=()=>{
     router.push("/") // Manually redirect
   }
 
-  return <button onClick={handleLogout}>Sign out</button>
+  return <button className="bg-gray-800 text-white shadow-md p-2 px-8 font-semibold rounded-xl cursor-pointer" type="submit" onClick={handleLogout}>Log Out</button>
 }
 
 

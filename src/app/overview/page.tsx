@@ -1,6 +1,7 @@
 import Post from "@/models/Post";
 import { ConnectToDB } from "@/lib/dbConn";
 import Link from "next/link";
+import LogoutButton from "@/components/LogoutButton";
 
 const POSTS_PER_PAGE = 5;
 
@@ -46,11 +47,12 @@ export default async function Overview({
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16"></div>
       </nav>
       {/* Placeholder for header*/}
-      <header className="relative bg-white shadow-sm">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <header className="relative bg-white shadow-sm w-full">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-stretch w-full">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             Overview
           </h1>
+          <LogoutButton />
         </div>
       </header>
       <main>
