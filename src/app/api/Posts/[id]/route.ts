@@ -3,11 +3,11 @@ import { ConnectToDB } from "@/lib/dbConn";
 import Post from "@/models/Post";
 import mongoose from "mongoose";
 
-
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+
   //get ID and connect to DB
   const { id } = await params;
   await ConnectToDB();
