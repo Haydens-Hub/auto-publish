@@ -5,7 +5,7 @@ import { buffer } from "stream/consumers";
 import {auth} from "@/auth"
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string; filetype: string } }
+  { params }: { params: Promise<{ id: string; filetype: string }> }
 )
  {  //authentication
     const session = await auth();
@@ -15,8 +15,7 @@ export async function GET(
 
 
   try {
-    //get post
-    const { id, filetype } = params;
+    const { id, filetype } = await params;
     await ConnectToDB();
     const post = await Post.findById(id);
     if (!post) {

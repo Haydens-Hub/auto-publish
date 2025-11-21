@@ -5,11 +5,11 @@ import mongoose from "mongoose";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
 
   //get ID and connect to DB
-  const { id } = params;
+  const { id } = await params;
   await ConnectToDB();
   try {
     //find and delete post by ID, then return response

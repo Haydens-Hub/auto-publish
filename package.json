@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@next/env": "^15.5.4",
+    "@opendocsg/pdf2md": "^0.2.2",
     "dotenv": "^17.2.2",
     "formidable": "^3.5.4",
     "mime-types": "^3.0.1",
@@ -21,7 +22,6 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "swr": "^2.3.6",
-    "ts-migrate-mongoose": "^4.1.0",
     "zod": "^4.1.11"
   },
   "devDependencies": {
@@ -36,6 +36,7 @@
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
+    "ts-migrate-mongoose": "^4.1.1",
     "typescript": "^5"
   }
 }

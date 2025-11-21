@@ -57,6 +57,7 @@ export async function POST(request: NextRequest) {
       title,
       references,
       abstract,
+      shortblurb,
     });
     //save post
     await post.save();
