@@ -2,6 +2,7 @@ import { ConnectToDB, getPostById } from "@/lib/dbConn";
 import pdf2md from "@opendocsg/pdf2md";
 import { NextRequest, NextResponse } from "next/server";
 import { richTextFromMarkdown } from "@contentful/rich-text-from-markdown";
+import slug from 'slug';
 
 const CONTENTFUL_SPACE_ID = process.env.CONTENTFUL_SPACE_ID!;
 const CONTENTFUL_ENVIRONMENT = process.env.CONTENTFUL_ENVIRONMENT || "master";
@@ -114,6 +115,7 @@ export async function POST(
             },
           },
         },
+        slug: { "en-US": slug(post.title) },
       },
     }),
   });

@@ -21,6 +21,7 @@
     "next": "15.5.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "slug": "^11.0.1",
     "swr": "^2.3.6",
     "zod": "^4.1.11"
   },
@@ -31,6 +32,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/slug": "^5.0.9",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
     "eslint-config-prettier": "^10.1.8",
