@@ -7,6 +7,7 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+
   //get ID and connect to DB
   const { id } = await params;
   await ConnectToDB();
