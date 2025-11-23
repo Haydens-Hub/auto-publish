@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 
     const name = data.get("name")?.toString() || "";
     const email = data.get("email")?.toString() || "";
-    const authorTitle= data.get("authorTitle")?.toString() || "";
+    const authorTitle= data.get("authorTitle")?.toString() || "Advocate";
     const submissionType = data.get("submissionType")?.toString() || "";
     const ideaDescription = data.get("ideaDescription")?.toString() || "";
     const motivation = data.get("motivation")?.toString() || "";

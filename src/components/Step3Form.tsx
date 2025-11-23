@@ -27,18 +27,18 @@ export const Step3Form = () => {
       // append all non-file fields
       formDataToSend.append("name", data.name);
       formDataToSend.append("email", data.email);
-      formDataToSend.append("authorTitle", data.authorTitle);
+      formDataToSend.append("authorTitle", data.authorTitle||"Advocate");
       formDataToSend.append("submissionType", data.submissionType);
       formDataToSend.append("ideaDescription", data.ideaDescription);
       formDataToSend.append("motivation", data.motivation);
       formDataToSend.append("category", data.category);
       formDataToSend.append("title", data.title);
-      formDataToSend.append("summary", data.summary);
-      formDataToSend.append("reflection", data.reflection);
+      formDataToSend.append("summary", data.summary||"Summary unavailable");
+      formDataToSend.append("reflection", data.reflection||"No reflection");
       formDataToSend.append("signature", data.signature);
       formDataToSend.append("questions", data.questions);
       formDataToSend.append("references", data.references);
-      formDataToSend.append("abstract", data.abstract);
+      formDataToSend.append("abstract", data.abstract||"Abstract unavailable");
       formDataToSend.append("shortblurb", data.shortblurb);
       // append files (only if present)
       if (data.articleFile)
@@ -110,7 +110,14 @@ export const Step3Form = () => {
             options={categories}
             error={errors.category}
           />
-
+                    {/* Title */}
+          <FormInput
+            type="text"
+            placeholder="Your Answer"
+            formDataAttr="authorTitle"
+            title={titles.authorTitle}
+            error={errors.authorTitle}
+          />
 
 
           {/* Article File */}
@@ -135,7 +142,6 @@ export const Step3Form = () => {
             type="text"
             placeholder="Your Answer"
             formDataAttr="abstract"
-            required
             title={titles.abstract}
             error={errors.abstract}
           />

@@ -70,7 +70,6 @@ export const Step2Form = () => {
             title={titles.ideaDescription}
             error={errors.ideaDescription}
           />
-
           {/* Motivation */}
           <FormInput
             type="text"

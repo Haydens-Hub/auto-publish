@@ -11,7 +11,9 @@ type Params = { id: string };
 export default async function DetailsPage({ params }: { params: Params }) {
   await ConnectToDB();
   const { id } = await params;
+  
   const post = await getPostById(id);
+  
   if (!post) {
     return (
       <div>
@@ -44,6 +46,7 @@ export default async function DetailsPage({ params }: { params: Params }) {
     { label: "Signature", value: post.signature },
     { label: "Additional Questions", value: post.questions },
   ];
+
 
   return (
     <div className="min-h-full">
