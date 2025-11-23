@@ -10,7 +10,41 @@ const CONTENTFUL_CMA_TOKEN = process.env.CONTENTFUL_CMA_TOKEN!;
 const UPLOAD_URL = `https://upload.contentful.com/spaces/${CONTENTFUL_SPACE_ID}`;
 const BASE_URL = `https://api.contentful.com/spaces/${CONTENTFUL_SPACE_ID}/environments/${CONTENTFUL_ENVIRONMENT}`;
 
-async function uploadPDFToContentful(fileBuffer: Buffer, fileName: string) {
+interface SlugExistsResult {
+  exists: boolean,
+  entryId?: string,
+  version?: number,
+}
+
+async function doesSlugAlreadyExist(contentType: string, slug: string): Promise<SlugExistsResult> {
+  try {
+    const searchRes = await fetch(
+      `${BASE_URL}/entries?content_type=${contentType}&fields.slug=${slug}&limit=1`,
+      {
+        headers: {
+          Authorization: `Bearer ${CONTENTFUL_CMA_TOKEN}`,
+        },
+      }
+    );
+
+    if (!searchRes.ok) {
+      const errText = await searchRes.text();
+      throw new Error(`Slug check failed: ${errText}`);
+    }
+
+    const data = await searchRes.json();
+    return {
+      exists: data.items.length > 0,
+      entryId: data.items[0]?.sys.id,
+      version: data.items[0]?.sys.version,
+    };
+  } catch (error) {
+    console.error("Error checking slug:", error);
+    throw error;
+  }
+}
+
+async function uploadPDFToContentful(fileBuffer: Buffer, fileName: string): Promise<string> {
   const uploadRes = await fetch(`${UPLOAD_URL}/uploads`, {
     method: "POST",
     headers: {
@@ -76,79 +110,141 @@ async function uploadPDFToContentful(fileBuffer: Buffer, fileName: string) {
   return assetId;
 }
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  //get data
-  await ConnectToDB();
-  const { id } = await params;
-  const post = await getPostById(id);
-  const markdownText = await pdf2md(post.articleFile.data.buffer);
-  const mainContentRichText = await richTextFromMarkdown(markdownText);
-  const referencesRichText = await richTextFromMarkdown(post.references);
+async function createAuthor(name: string): Promise<string> {
+  const slugifiedName = slug(name);
+  const slugExistsRes = await doesSlugAlreadyExist("author", slugifiedName);
 
-  const assetId = await uploadPDFToContentful(post.articleFile.data.buffer, post.articleFile.filename);
+  if (slugExistsRes.exists) {
+    return slugExistsRes.entryId!;
+  }
 
   const createRes = await fetch(`${BASE_URL}/entries`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${CONTENTFUL_CMA_TOKEN}`,
       "Content-Type": "application/vnd.contentful.management.v1+json",
-      "X-Contentful-Content-Type": "post",
+      "X-Contentful-Content-Type": "author",
     },
     body: JSON.stringify({
       fields: {
-        title: { "en-US": post.title },
-        publishedDate: { "en-US": new Date().toISOString() },
-        mainContent: { "en-US": mainContentRichText },
-        categoryType: { "en-US": post.category },
-        shortBlurb: { "en-US": post.shortBlurb },
-        abstract: { "en-US": post.abstract },
-        references: { "en-US": referencesRichText },
-        pdf: {
-          "en-US": {
-            sys: {
-              type: "Link",
-              linkType: "Asset",
-              id: assetId,
-            },
-          },
-        },
-        slug: { "en-US": slug(post.title) },
+        authorName: { "en-US": name },
+        authorTitle: { "en-US": "Advocate" },
+        aboutAuthor: { "en-US": "No description." },
+        reflectionOnWriting: { "en-US": "No reflection." },
+        slug: { "en-US": slugifiedName },
       },
     }),
   });
 
-  console.log("Create response status:", createRes.status);
   if (!createRes.ok) {
     const errText = await createRes.text();
     throw new Error(`Entry creation failed: ${errText}`);
   }
+
+  const entry = await createRes.json();
+  return entry.sys.id;
+}
+
+export async function POST(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  await ConnectToDB();
+  const { id } = await params;
+  const post = await getPostById(id);
+  let slugExistsRes: SlugExistsResult = { exists: false };
+  if (!post) {
+    return new NextResponse("Post not found", { status: 404 });
+  }
+
+  const postFields: Record<string, object> = {
+    publishedDate: { "en-US": new Date().toISOString() },
+    categoryType: { "en-US": post.category },
+    shortBlurb: { "en-US": post.shortBlurb },
+    abstract: { "en-US": post.abstract },
+  };
+
+  if (post.title) {
+    const slugifiedTitle = slug(post.title);
+    postFields.title = { "en-US": post.title };
+    postFields.slug = { "en-US": slugifiedTitle };
+    slugExistsRes = await doesSlugAlreadyExist("post", slugifiedTitle);
+  }
+
+  if (post.name) {
+    const authorId = await createAuthor(post.name);
+    postFields.author = {
+      "en-US": {
+        sys: {
+          type: "Link",
+          linkType: "Entry",
+          id: authorId,
+        },
+      },
+    };
+  }
+
+  if (post.articleFile.data) {
+    const markdownText = await pdf2md(post.articleFile.data.buffer);
+    const mainContentRichText = await richTextFromMarkdown(markdownText);
+    postFields.mainContent = { "en-US": mainContentRichText };
+
+    const assetId = await uploadPDFToContentful(post.articleFile.data.buffer, post.articleFile.filename);
+    postFields.pdf = {
+      "en-US": {
+        sys: {
+          type: "Link",
+          linkType: "Asset",
+          id: assetId,
+        },
+      },
+    };
+  }
+
+  if (post.references) {
+    const referencesRichText = await richTextFromMarkdown(post.references);
+    postFields.references = { "en-US": referencesRichText };
+  }
+
+  let createRes;
+
+  if (slugExistsRes.exists) {
+    createRes = await fetch(`${BASE_URL}/entries/${slugExistsRes.entryId!}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${CONTENTFUL_CMA_TOKEN}`,
+        "Content-Type": "application/vnd.contentful.management.v1+json",
+        "X-Contentful-Version": slugExistsRes.version!.toString(),
+      },
+      body: JSON.stringify({
+        fields: postFields,
+      }),
+    });
+    console.log("Attempting PUT request to update based on entry id...");
+  } else {
+    createRes = await fetch(`${BASE_URL}/entries`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${CONTENTFUL_CMA_TOKEN}`,
+        "Content-Type": "application/vnd.contentful.management.v1+json",
+        "X-Contentful-Content-Type": "post",
+      },
+      body: JSON.stringify({ fields: postFields })
+    });
+    console.log("Attempting POST request to create entry...");
+  }
+
+  console.log("Create response status:", createRes.status);
+  if (!createRes.ok) {
+    const errText = await createRes.text();
+    return NextResponse.json(
+      { success: false, message: `Failed to create or update post: ${errText}` },
+      { status: createRes.status }
+    );
+  }
   const entry = await createRes.json();
   const entryId = entry.sys.id;
   console.log(`Draft entry created with ID: ${entryId}`);
-
-  // console.log("Publishing entry:", entryId);
-  // const publishRes = await fetch(`${BASE_URL}/entries/${entryId}/published`, {
-  //   method: "PUT",
-  //   headers: {
-  //     Authorization: `Bearer ${CONTENTFUL_CMA_TOKEN}`,
-  //     "Content-Type": "application/vnd.contentful.management.v1+json",
-  //     "X-Contentful-Version": entry.sys.version.toString(),
-  //   },
-  //   body: JSON.stringify(entry),
-  // });
-
-  // console.log("Publish response status:", publishRes.status);
-  // if (!publishRes.ok) {
-  //   const errText = await publishRes.text();
-  //   console.error("Publish failed:", errText);
-  //   throw new Error(`Publish failed: ${errText}`);
-  // }
-
-  // const published = await publishRes.json();
-  // console.log("Published successfully:", published.sys.id);
 
   return NextResponse.json({
     success: true,
