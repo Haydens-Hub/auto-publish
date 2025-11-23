@@ -119,7 +119,6 @@ export const Step3Form = () => {
             error={errors.authorTitle}
           />
 
-
           {/* Article File */}
           <FormInput
             type="file"

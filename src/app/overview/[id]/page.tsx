@@ -47,7 +47,6 @@ export default async function DetailsPage({ params }: { params: Params }) {
     { label: "Additional Questions", value: post.questions },
   ];
 
-
   return (
     <div className="min-h-full">
       <nav className="bg-gray-800">

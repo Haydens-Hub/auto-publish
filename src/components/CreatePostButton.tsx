@@ -16,7 +16,9 @@ export function CreatePostButton({ id }: { id: string }) {
         console.log("Post successfully created!");
       } else {
         const errorData = await res.json();
-        setError(errorData.message || "Failed to publish post. Please try again.");
+        setError(
+          errorData.message || "Failed to publish post. Please try again.",
+        );
       }
     } catch (error) {
       setError("An unexpected error occurred while publishing the post.");
@@ -34,11 +36,7 @@ export function CreatePostButton({ id }: { id: string }) {
       >
         Create Post
       </button>
-      {error && (
-        <p className="text-sm text-red-600 text-right mt-2">
-          {error}
-        </p>
-      )}
+      {error && <p className="text-sm text-red-600 text-right mt-2">{error}</p>}
     </>
   );
 }

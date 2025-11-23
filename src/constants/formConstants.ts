@@ -7,14 +7,18 @@ export const titles = {
     "Tell us about your idea! What kind of article are you thinking of writing about?",
   draftFile: "OPTIONAL: Submit your draft (partial, ideas, etc)",
   category: "Enter category for your article",
-  authorTitle: "For publishing purposes, is there a specific title you'd like to go by as the article author? (If not, your title will default to \"Advocate\")",
-  about: "For publishing purposes, please give a brief description of yourself. (If not, your author description will default to \"No description.\"",
-  reflection: "For publishing purposes, please give a brief reflection on your writing. (If not, your author reflection will default to \"No reflection.\")",
+  authorTitle:
+    'For publishing purposes, is there a specific title you\'d like to go by as the article author? (If not, your title will default to "Advocate")',
+  about:
+    'For publishing purposes, please give a brief description of yourself. (If not, your author description will default to "No description."',
+  reflection:
+    'For publishing purposes, please give a brief reflection on your writing. (If not, your author reflection will default to "No reflection.")',
   articleFile:
     "Attach your article draft, make sure the file name is the title of your article.",
   references:
     "Please list any references, sources, or citations used in your article.",
-  abstract: "Provide an abstract (longer, one paragraph) for your article. You can copy-and-paste it from your article, if you have one.",
+  abstract:
+    "Provide an abstract (longer, one paragraph) for your article. You can copy-and-paste it from your article, if you have one.",
   shortblurb:
     "Provide a short blurb (2-3 sentences) that summarizes your article for promotional purposes.",
   signature:
