@@ -63,7 +63,7 @@ export const Step2Form = () => {
 
           {/* Idea Description */}
           <FormInput
-            type="text"
+            type="paragraph"
             placeholder="Your Answer"
             formDataAttr="ideaDescription"
             required
@@ -72,7 +72,7 @@ export const Step2Form = () => {
           />
           {/* Motivation */}
           <FormInput
-            type="text"
+            type="paragraph"
             placeholder="Your Answer"
             formDataAttr="motivation"
             required
@@ -88,15 +88,15 @@ export const Step2Form = () => {
             error={errors.draftFile}
           />
 
-                    <FormInput
-            type="text"
+          <FormInput
+            type="paragraph"
             placeholder=""
-            formDataAttr="summary"
-            title={titles.summary}
-            error={errors.summary}
+            formDataAttr="about"
+            title={titles.about}
+            error={errors.about}
           />
-                    <FormInput
-            type="text"
+          <FormInput
+            type="paragraph"
             placeholder=""
             formDataAttr="reflection"
             title={titles.reflection}

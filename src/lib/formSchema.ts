@@ -14,7 +14,7 @@ export const FormSchema = z.object({
     "Category is required",
   ),
   title: z.string().min(1, "Title is required"),
-  summary: z.string().min(1, "Summary is required"),
+  about: z.string().min(1, "About is required"),
   reflection: z.string().min(1, "Reflection is required"),
   references: z.string().min(1, "References are required"),
   abstract: z.string().min(1, "Abstract is required"),
@@ -34,14 +34,14 @@ export const Step2Schema = z.object({
   ideaDescription: z.string().min(1, "Idea description is required"),
   motivation: z.string().min(1, "Motivation is required"),
   draftFile: z.any().optional(),
- });
+});
 
 export const Step3Schema = z.object({
   category: z.enum(
     ["academic", "youth", "creative", "advocacy", "community"],
     "Category is required",
   ),
-  summary: z.string().min(1, "Summary is required"),
+  about: z.string().min(1, "About is required"),
   reflection: z.string().min(1, "Reflection is required"),
   articleFile: z.any(),
   signature: z.string().min(1, "Signature is required"),

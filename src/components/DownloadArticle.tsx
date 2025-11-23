@@ -48,7 +48,7 @@ export function DownloadArticle({ id, filetype }: DownloadArticleProps) {
       onClick={downloadFile}
       disabled={loading}
     >
-      <span className="text-blue-600 hover:underline">{buttonLabel}</span>
+      <span className="text-blue-600 cursor-pointer hover:underline">{buttonLabel}</span>
       {loading && " (Loading...)"}
       {error && <span className="text-red-500 ml-2">{error}</span>}
     </button>

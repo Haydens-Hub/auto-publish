@@ -27,18 +27,18 @@ export const Step3Form = () => {
       // append all non-file fields
       formDataToSend.append("name", data.name);
       formDataToSend.append("email", data.email);
-      formDataToSend.append("authorTitle", data.authorTitle||"Advocate");
+      formDataToSend.append("authorTitle", data.authorTitle || "Advocate");
       formDataToSend.append("submissionType", data.submissionType);
       formDataToSend.append("ideaDescription", data.ideaDescription);
       formDataToSend.append("motivation", data.motivation);
       formDataToSend.append("category", data.category);
       formDataToSend.append("title", data.title);
-      formDataToSend.append("summary", data.summary||"Summary unavailable");
-      formDataToSend.append("reflection", data.reflection||"No reflection");
+      formDataToSend.append("about", data.about || "No description.");
+      formDataToSend.append("reflection", data.reflection || "No reflection.");
       formDataToSend.append("signature", data.signature);
       formDataToSend.append("questions", data.questions);
       formDataToSend.append("references", data.references);
-      formDataToSend.append("abstract", data.abstract||"Abstract unavailable");
+      formDataToSend.append("abstract", data.abstract);
       formDataToSend.append("shortblurb", data.shortblurb);
       // append files (only if present)
       if (data.articleFile)
@@ -110,7 +110,7 @@ export const Step3Form = () => {
             options={categories}
             error={errors.category}
           />
-                    {/* Title */}
+          {/* Title */}
           <FormInput
             type="text"
             placeholder="Your Answer"
@@ -130,7 +130,7 @@ export const Step3Form = () => {
           />
           {/* References*/}
           <FormInput
-            type="text"
+            type="paragraph"
             placeholder="Your Answer"
             formDataAttr="references"
             required
@@ -139,7 +139,7 @@ export const Step3Form = () => {
           />
           {/* Abstract*/}
           <FormInput
-            type="text"
+            type="paragraph"
             placeholder="Your Answer"
             formDataAttr="abstract"
             title={titles.abstract}
@@ -147,7 +147,7 @@ export const Step3Form = () => {
           />
           {/* Short Blurb*/}
           <FormInput
-            type="text"
+            type="paragraph"
             placeholder="Your Answer"
             formDataAttr="shortblurb"
             required

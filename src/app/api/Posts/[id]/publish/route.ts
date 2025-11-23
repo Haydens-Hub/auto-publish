@@ -110,8 +110,8 @@ async function uploadPDFToContentful(fileBuffer: Buffer, fileName: string): Prom
   return assetId;
 }
 
-async function createAuthor(name: string): Promise<string> {
-  const slugifiedName = slug(name);
+async function createAuthor(name: string, title?: string, about?: string, reflection?: string): Promise<string> {
+  const slugifiedName = slug(name) + "-author";
   const slugExistsRes = await doesSlugAlreadyExist("author", slugifiedName);
 
   if (slugExistsRes.exists) {
@@ -128,9 +128,9 @@ async function createAuthor(name: string): Promise<string> {
     body: JSON.stringify({
       fields: {
         authorName: { "en-US": name },
-        authorTitle: { "en-US": "Advocate" },
-        aboutAuthor: { "en-US": "No description." },
-        reflectionOnWriting: { "en-US": "No reflection." },
+        authorTitle: { "en-US": title || "Advocate" },
+        aboutAuthor: { "en-US": about || "No description." },
+        reflectionOnWriting: { "en-US": reflection || "No reflection." },
         slug: { "en-US": slugifiedName },
       },
     }),
@@ -172,7 +172,7 @@ export async function POST(
   }
 
   if (post.name) {
-    const authorId = await createAuthor(post.name);
+    const authorId = await createAuthor(post.name, post.authorTitle, post.about, post.reflection);
     postFields.author = {
       "en-US": {
         sys: {
@@ -184,7 +184,7 @@ export async function POST(
     };
   }
 
-  if (post.articleFile.data) {
+  if (post.articleFile) {
     const markdownText = await pdf2md(post.articleFile.data.buffer);
     const mainContentRichText = await richTextFromMarkdown(markdownText);
     postFields.mainContent = { "en-US": mainContentRichText };
@@ -234,7 +234,7 @@ export async function POST(
     console.log("Attempting POST request to create entry...");
   }
 
-  console.log("Create response status:", createRes.status);
+  console.log("Create post response status:", createRes.status);
   if (!createRes.ok) {
     const errText = await createRes.text();
     return NextResponse.json(
@@ -244,7 +244,6 @@ export async function POST(
   }
   const entry = await createRes.json();
   const entryId = entry.sys.id;
-  console.log(`Draft entry created with ID: ${entryId}`);
 
   return NextResponse.json({
     success: true,

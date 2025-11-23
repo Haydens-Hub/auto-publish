@@ -5,15 +5,15 @@ import { ConnectToDB, getPostById } from "@/lib/dbConn";
 import { DeletePostButton } from "@/components/DeletePostButton";
 import { BackButton } from "@/components/BackButton";
 import { DownloadArticle } from "@/components/DownloadArticle";
-import { PublishPostButton } from "@/components/PublishPostButton";
+import { CreatePostButton } from "@/components/CreatePostButton";
 type Params = { id: string };
 
 export default async function DetailsPage({ params }: { params: Params }) {
   await ConnectToDB();
   const { id } = await params;
-  
+
   const post = await getPostById(id);
-  
+
   if (!post) {
     return (
       <div>
@@ -40,7 +40,7 @@ export default async function DetailsPage({ params }: { params: Params }) {
     { label: "Title", value: post.title },
     { label: "References", value: post.references },
     { label: "Abstract", value: post.abstract },
-    { label: "Summary", value: post.summary },
+    { label: "About", value: post.about },
     { label: "Reflection", value: post.reflection },
     { label: "Short Blurb", value: post.shortblurb },
     { label: "Signature", value: post.signature },
@@ -139,7 +139,7 @@ export default async function DetailsPage({ params }: { params: Params }) {
                   <div className="flex justify-end gap-x-6">
                     <BackButton />
                     <DeletePostButton id={post._id.toString()} />
-                    <PublishPostButton id={post._id.toString()} />
+                    <CreatePostButton id={post._id.toString()} />
                   </div>
                 </div>
               </div>

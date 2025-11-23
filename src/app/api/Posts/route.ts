@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 
     const name = data.get("name")?.toString() || "";
     const email = data.get("email")?.toString() || "";
-    const authorTitle= data.get("authorTitle")?.toString() || "Advocate";
+    const authorTitle = data.get("authorTitle")?.toString() || "Advocate";
     const submissionType = data.get("submissionType")?.toString() || "";
     const ideaDescription = data.get("ideaDescription")?.toString() || "";
     const motivation = data.get("motivation")?.toString() || "";
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
     const references: string = data.get("references")?.toString() || "";
     const abstract: string = data.get("abstract")?.toString() || "";
     const shortblurb: string = data.get("shortblurb")?.toString() || "";
-    const summary: string = data.get("summary")?.toString() || "";
+    const about: string = data.get("about")?.toString() || "";
     const reflection: string = data.get("reflection")?.toString() || "";
     //create new post
     const post = new Post({
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
       category,
       signature,
       questions,
-      summary,
+      about,
       articleFile: articleFileBuffer || null,
       draftFile: draftFileBuffer || null,
       title,
