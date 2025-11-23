@@ -11,8 +11,9 @@ type FormData = {
   motivation: string;
   draftFile: File | null; // optional file upload
   category: "academic" | "youth" | "creative" | "advocacy" | "community" | "";
-  missionResonance: string;
-  missionRelation: string;
+  title: string;
+  summary: string;
+  reflection: string;
   articleFile: File | null;
   references: string;
   abstract: string;
@@ -41,8 +42,9 @@ export function FormProvider({ children }: { children: ReactNode }) {
     motivation: "",
     draftFile: null,
     category: "",
-    missionResonance: "",
-    missionRelation: "",
+    title: "",
+    summary: "",
+    reflection: "",
     articleFile: null,
     references: "",
     abstract: "",
@@ -64,9 +66,10 @@ export function FormProvider({ children }: { children: ReactNode }) {
       motivation: "",
       draftFile: null,
       category: "",
-      missionResonance: "",
-      missionRelation: "",
       articleFile: null,
+      title: "",
+      summary: "",
+      reflection: "",
       references: "",
       abstract: "",
       shortblurb: "",

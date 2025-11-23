@@ -88,6 +88,23 @@ export const Step2Form = () => {
             title={titles.draftFile}
             error={errors.draftFile}
           />
+
+                    <FormInput
+            type="text"
+            placeholder="Your Answer"
+            formDataAttr="summary"
+            required
+            title={titles.summary}
+            error={errors.summary}
+          />
+                    <FormInput
+            type="text"
+            placeholder="Your Answer"
+            formDataAttr="reflection"
+            required
+            title={titles.reflection}
+            error={errors.reflection}
+          />
         </div>
       </div>
     </SubmissionLayout>

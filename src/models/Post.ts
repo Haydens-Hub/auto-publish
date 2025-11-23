@@ -10,11 +10,11 @@ export interface Posts extends mongoose.Document {
   motivation: string;
   draftFile: any;
   category: string;
-  missionResonance: string;
-  missionRelation: string;
+  reflection: string;
   title: string;
   references: string;
   abstract: string;
+  summary: string;
   shortblurb: string;
   articleFile: any;
   signature: string;
@@ -41,14 +41,8 @@ const PostSchema = new mongoose.Schema<Posts>({
     enum: ["academic", "youth", "creative", "advocacy", "community"],
     required: [true, "Category is required"],
   },
-  missionResonance: {
-    type: String,
-    required: [true, "Mission resonance is required"],
-  },
-  missionRelation: {
-    type: String,
-    required: [true, "Mission relation is required"],
-  },
+  reflection: { type: String, required: [true, "Reflection is required"] },
+  summary: { type: String, required: [true, "Summary is required"] },
   title: { type: String, required: [true, "Title is required"] },
   references: { type: String, required: [true, "References are required"] },
   abstract: { type: String, required: [true, "Abstract is required"] },

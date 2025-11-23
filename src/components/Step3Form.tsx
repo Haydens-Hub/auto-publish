@@ -31,8 +31,9 @@ export const Step3Form = () => {
       formDataToSend.append("ideaDescription", data.ideaDescription);
       formDataToSend.append("motivation", data.motivation);
       formDataToSend.append("category", data.category);
-      formDataToSend.append("missionResonance", data.missionResonance);
-      formDataToSend.append("missionRelation", data.missionRelation);
+      formDataToSend.append("title", data.title);
+      formDataToSend.append("summary", data.summary);
+      formDataToSend.append("reflection", data.reflection);
       formDataToSend.append("signature", data.signature);
       formDataToSend.append("questions", data.questions);
       formDataToSend.append("references", data.references);
@@ -109,25 +110,7 @@ export const Step3Form = () => {
             error={errors.category}
           />
 
-          {/* Idea Description */}
-          <FormInput
-            type="text"
-            placeholder="Your Answer"
-            formDataAttr="missionResonance"
-            required
-            title={titles.missionResonance}
-            error={errors.missionResonance}
-          />
 
-          {/* Mission Relation */}
-          <FormInput
-            type="text"
-            placeholder="Your Answer"
-            formDataAttr="missionRelation"
-            required
-            title={titles.missionRelation}
-            error={errors.missionRelation}
-          />
 
           {/* Article File */}
           <FormInput
