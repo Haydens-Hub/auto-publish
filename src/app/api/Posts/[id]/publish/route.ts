@@ -29,7 +29,7 @@ async function doesSlugAlreadyExist(contentType: string, slug: string): Promise<
 
     if (!searchRes.ok) {
       const errText = await searchRes.text();
-      throw new Error(`Slug check failed: ${errText}`);
+      throw new Error(`Slug check for ${contentType} failed: ${errText}`);
     }
 
     const data = await searchRes.json();
@@ -39,7 +39,6 @@ async function doesSlugAlreadyExist(contentType: string, slug: string): Promise<
       version: data.items[0]?.sys.version,
     };
   } catch (error) {
-    console.error("Error checking slug:", error);
     throw error;
   }
 }
@@ -160,7 +159,7 @@ export async function POST(
   const postFields: Record<string, object> = {
     publishedDate: { "en-US": new Date().toISOString() },
     categoryType: { "en-US": post.category },
-    shortBlurb: { "en-US": post.shortBlurb },
+    shortBlurb: { "en-US": post.shortblurb },
     abstract: { "en-US": post.abstract },
   };
 
@@ -168,19 +167,21 @@ export async function POST(
     const slugifiedTitle = slug(post.title);
     postFields.title = { "en-US": post.title };
     postFields.slug = { "en-US": slugifiedTitle };
-    slugExistsRes = await doesSlugAlreadyExist("post", slugifiedTitle);
+    slugExistsRes = await doesSlugAlreadyExist("advocacyBlog", slugifiedTitle);
   }
 
   if (post.name) {
     const authorId = await createAuthor(post.name, post.authorTitle, post.about, post.reflection);
     postFields.author = {
-      "en-US": {
-        sys: {
-          type: "Link",
-          linkType: "Entry",
-          id: authorId,
+      "en-US": [
+        {
+          sys: {
+            type: "Link",
+            linkType: "Entry",
+            id: authorId,
+          },
         },
-      },
+      ],
     };
   }
 
@@ -227,7 +228,7 @@ export async function POST(
       headers: {
         Authorization: `Bearer ${CONTENTFUL_CMA_TOKEN}`,
         "Content-Type": "application/vnd.contentful.management.v1+json",
-        "X-Contentful-Content-Type": "post",
+        "X-Contentful-Content-Type": "advocacyBlog",
       },
       body: JSON.stringify({ fields: postFields })
     });
