@@ -20,6 +20,7 @@ export async function POST(request: NextRequest) {
 
     const name = data.get("name")?.toString() || "";
     const email = data.get("email")?.toString() || "";
+    const authorTitle= data.get("authorTitle")?.toString() || "";
     const submissionType = data.get("submissionType")?.toString() || "";
     const ideaDescription = data.get("ideaDescription")?.toString() || "";
     const motivation = data.get("motivation")?.toString() || "";
@@ -40,6 +41,7 @@ export async function POST(request: NextRequest) {
     const post = new Post({
       name,
       email,
+      authorTitle,
       reflection,
       date,
       submissionType,

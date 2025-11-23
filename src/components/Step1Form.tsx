@@ -97,11 +97,10 @@ export const Step1Form = () => {
           {/* Title */}
           <FormInput
             type="text"
-            placeholder="title"
-            formDataAttr="title"
-            required
-            title={titles.title}
-            error={errors.title}
+            placeholder="authorTitle"
+            formDataAttr="authorTitle"
+            title={titles.authorTitle}
+            error={errors.authorTitle}
           />
           {/* Submission Type */}
           <FormInput

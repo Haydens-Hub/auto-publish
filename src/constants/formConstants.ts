@@ -7,7 +7,7 @@ export const titles = {
     "Tell us about your idea! What kind of article are you thinking of writing about?",
   draftFile: "OPTIONAL: Submit your draft (partial, ideas, etc)",
   category: "Enter category for your article",
-  title: "For publishing purposes, is there a specific title you'd like to go by as the article author? (If not, your title will default to Advocate)",
+  authorTitle: "For publishing purposes, is there a specific title you'd like to go by as the article author? (If not, your title will default to Advocate)",
   summary: "(Optional) Provide a short summary (one or two sentence) for your article.",
   reflection: "For publishing purposes, please give a brief reflection on your writing. (If not, your author reflection will default to No reflection.)",
   articleFile:

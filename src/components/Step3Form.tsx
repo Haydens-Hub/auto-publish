@@ -27,6 +27,7 @@ export const Step3Form = () => {
       // append all non-file fields
       formDataToSend.append("name", data.name);
       formDataToSend.append("email", data.email);
+      formDataToSend.append("authorTitle", data.authorTitle);
       formDataToSend.append("submissionType", data.submissionType);
       formDataToSend.append("ideaDescription", data.ideaDescription);
       formDataToSend.append("motivation", data.motivation);

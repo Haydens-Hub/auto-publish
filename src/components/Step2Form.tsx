@@ -91,17 +91,15 @@ export const Step2Form = () => {
 
                     <FormInput
             type="text"
-            placeholder="Your Answer"
+            placeholder=""
             formDataAttr="summary"
-            required
             title={titles.summary}
             error={errors.summary}
           />
                     <FormInput
             type="text"
-            placeholder="Your Answer"
+            placeholder=""
             formDataAttr="reflection"
-            required
             title={titles.reflection}
             error={errors.reflection}
           />

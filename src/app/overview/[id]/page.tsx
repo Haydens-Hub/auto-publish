@@ -28,6 +28,7 @@ export default async function DetailsPage({ params }: { params: Params }) {
   const fields: Field[] = [
     { label: "Name", value: post.name },
     { label: "Email Address", value: post.email },
+    { label: "Author Title", value: post.authorTitle },
     { label: "Submission Type", value: post.submissionType },
     { label: "Idea Description", value: post.ideaDescription },
     { label: "Motivation", value: post.motivation },

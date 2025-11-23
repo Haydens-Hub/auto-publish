@@ -6,6 +6,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 type FormData = {
   name: string;
   email: string;
+  authorTitle: string;
   submissionType: "pitch" | "draft" | ""; // radio/select
   ideaDescription: string;
   motivation: string;
@@ -37,6 +38,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<FormData>({
     name: "",
     email: "",
+    authorTitle: "",
     submissionType: "",
     ideaDescription: "",
     motivation: "",
@@ -61,6 +63,7 @@ export function FormProvider({ children }: { children: ReactNode }) {
     setData({
       name: "",
       email: "",
+      authorTitle: "",
       submissionType: "",
       ideaDescription: "",
       motivation: "",
