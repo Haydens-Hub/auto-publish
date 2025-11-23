@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-export function PublishPostButton({ id }: { id: string }) {
+export function CreatePostButton({ id }: { id: string }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
