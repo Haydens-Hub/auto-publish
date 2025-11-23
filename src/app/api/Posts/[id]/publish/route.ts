@@ -152,33 +152,28 @@ export async function POST(
   await ConnectToDB();
   const { id } = await params;
   const post = await getPostById(id);
-  const markdownText = await pdf2md(post.articleFile.data.buffer);
-  const mainContentRichText = await richTextFromMarkdown(markdownText);
-  const referencesRichText = await richTextFromMarkdown(post.references);
+  let slugExistsRes: SlugExistsResult = { exists: false };
+  if (!post) {
+    return new NextResponse("Post not found", { status: 404 });
+  }
 
-  const assetId = await uploadPDFToContentful(post.articleFile.data.buffer, post.articleFile.filename);
-  const authorId = await createAuthor(post.name);
-
-  const slugifiedTitle = slug(post.title);
-
-  const postFields = {
-    title: { "en-US": post.title },
+  const postFields: Record<string, object> = {
     publishedDate: { "en-US": new Date().toISOString() },
-    mainContent: { "en-US": mainContentRichText },
     categoryType: { "en-US": post.category },
     shortBlurb: { "en-US": post.shortBlurb },
     abstract: { "en-US": post.abstract },
-    references: { "en-US": referencesRichText },
-    pdf: {
-      "en-US": {
-        sys: {
-          type: "Link",
-          linkType: "Asset",
-          id: assetId,
-        },
-      },
-    },
-    author: {
+  };
+
+  if (post.title) {
+    const slugifiedTitle = slug(post.title);
+    postFields.title = { "en-US": post.title };
+    postFields.slug = { "en-US": slugifiedTitle };
+    slugExistsRes = await doesSlugAlreadyExist("post", slugifiedTitle);
+  }
+
+  if (post.name) {
+    const authorId = await createAuthor(post.name);
+    postFields.author = {
       "en-US": {
         sys: {
           type: "Link",
@@ -186,11 +181,30 @@ export async function POST(
           id: authorId,
         },
       },
-    },
-    slug: { "en-US": slugifiedTitle },
-  };
+    };
+  }
 
-  const slugExistsRes = await doesSlugAlreadyExist("post", slugifiedTitle);
+  if (post.articleFile.data) {
+    const markdownText = await pdf2md(post.articleFile.data.buffer);
+    const mainContentRichText = await richTextFromMarkdown(markdownText);
+    postFields.mainContent = { "en-US": mainContentRichText };
+
+    const assetId = await uploadPDFToContentful(post.articleFile.data.buffer, post.articleFile.filename);
+    postFields.pdf = {
+      "en-US": {
+        sys: {
+          type: "Link",
+          linkType: "Asset",
+          id: assetId,
+        },
+      },
+    };
+  }
+
+  if (post.references) {
+    const referencesRichText = await richTextFromMarkdown(post.references);
+    postFields.references = { "en-US": referencesRichText };
+  }
 
   let createRes;
 
@@ -223,7 +237,10 @@ export async function POST(
   console.log("Create response status:", createRes.status);
   if (!createRes.ok) {
     const errText = await createRes.text();
-    throw new Error(`Entry creation failed: ${errText}`);
+    return NextResponse.json(
+      { success: false, message: `Failed to create or update post: ${errText}` },
+      { status: createRes.status }
+    );
   }
   const entry = await createRes.json();
   const entryId = entry.sys.id;
