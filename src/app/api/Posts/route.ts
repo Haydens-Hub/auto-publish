@@ -25,33 +25,37 @@ export async function POST(request: NextRequest) {
 
     const name = data.get("name")?.toString() || "";
     const email = data.get("email")?.toString() || "";
+    const authorTitle = data.get("authorTitle")?.toString() || "Advocate";
     const submissionType = data.get("submissionType")?.toString() || "";
     const ideaDescription = data.get("ideaDescription")?.toString() || "";
     const motivation = data.get("motivation")?.toString() || "";
     const category = data.get("category")?.toString() || "";
-    const missionResonance = data.get("missionResonance")?.toString() || "";
-    const missionRelation = data.get("missionRelation")?.toString() || "";
     const signature = data.get("signature")?.toString() || "";
     const questions = data.get("questions")?.toString() || "";
     const date = new Date();
     //generate title from article file name if available
-    const title: string = articleFileBuffer ? articleFileBuffer.filename.split(".").slice(0, -1).join(".") : "Article";
+    const title: string = articleFileBuffer
+      ? articleFileBuffer.filename.split(".").slice(0, -1).join(".")
+      : "Article";
     const references: string = data.get("references")?.toString() || "";
     const abstract: string = data.get("abstract")?.toString() || "";
     const shortblurb: string = data.get("shortblurb")?.toString() || "";
+    const about: string = data.get("about")?.toString() || "";
+    const reflection: string = data.get("reflection")?.toString() || "";
     //create new post
     const post = new Post({
       name,
       email,
+      authorTitle,
+      reflection,
       date,
       submissionType,
       ideaDescription,
       motivation,
       category,
-      missionResonance,
-      missionRelation,
       signature,
       questions,
+      about,
       articleFile: articleFileBuffer || null,
       draftFile: draftFileBuffer || null,
       title,
@@ -64,13 +68,13 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       { message: "Post created successfully" },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (e) {
     console.log(e);
     return NextResponse.json(
       { message: "Failed to create post" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

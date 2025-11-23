@@ -5,12 +5,15 @@ import { ConnectToDB, getPostById } from "@/lib/dbConn";
 import { DeletePostButton } from "@/components/DeletePostButton";
 import { BackButton } from "@/components/BackButton";
 import { DownloadArticle } from "@/components/DownloadArticle";
+import { CreatePostButton } from "@/components/CreatePostButton";
 type Params = { id: string };
 
 export default async function DetailsPage({ params }: { params: Params }) {
   await ConnectToDB();
   const { id } = await params;
+
   const post = await getPostById(id);
+
   if (!post) {
     return (
       <div>
@@ -27,17 +30,18 @@ export default async function DetailsPage({ params }: { params: Params }) {
   const fields: Field[] = [
     { label: "Name", value: post.name },
     { label: "Email Address", value: post.email },
+    { label: "Author Title", value: post.authorTitle },
     { label: "Submission Type", value: post.submissionType },
     { label: "Idea Description", value: post.ideaDescription },
     { label: "Motivation", value: post.motivation },
     { label: "Draft File", value: "draft file placeholder" },
     { label: "Category", value: post.category },
-    { label: "Mission Resonance", value: post.missionResonance },
-    { label: "Mission Relation", value: post.missionRelation },
     { label: "Article File", value: "article file placeholder" },
     { label: "Title", value: post.title },
     { label: "References", value: post.references },
     { label: "Abstract", value: post.abstract },
+    { label: "About", value: post.about },
+    { label: "Reflection", value: post.reflection },
     { label: "Short Blurb", value: post.shortblurb },
     { label: "Signature", value: post.signature },
     { label: "Additional Questions", value: post.questions },
@@ -134,6 +138,7 @@ export default async function DetailsPage({ params }: { params: Params }) {
                   <div className="flex justify-end gap-x-6">
                     <BackButton />
                     <DeletePostButton id={post._id.toString()} />
+                    <CreatePostButton id={post._id.toString()} />
                   </div>
                 </div>
               </div>

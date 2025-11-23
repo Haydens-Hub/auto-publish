@@ -6,13 +6,15 @@ import { createContext, useContext, useState, ReactNode } from "react";
 type FormData = {
   name: string;
   email: string;
+  authorTitle: string;
   submissionType: "pitch" | "draft" | ""; // radio/select
   ideaDescription: string;
   motivation: string;
   draftFile: File | null; // optional file upload
   category: "academic" | "youth" | "creative" | "advocacy" | "community" | "";
-  missionResonance: string;
-  missionRelation: string;
+  title: string;
+  about: string;
+  reflection: string;
   articleFile: File | null;
   references: string;
   abstract: string;
@@ -36,13 +38,15 @@ export function FormProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<FormData>({
     name: "",
     email: "",
+    authorTitle: "",
     submissionType: "",
     ideaDescription: "",
     motivation: "",
     draftFile: null,
     category: "",
-    missionResonance: "",
-    missionRelation: "",
+    title: "",
+    about: "",
+    reflection: "",
     articleFile: null,
     references: "",
     abstract: "",
@@ -59,14 +63,16 @@ export function FormProvider({ children }: { children: ReactNode }) {
     setData({
       name: "",
       email: "",
+      authorTitle: "",
       submissionType: "",
       ideaDescription: "",
       motivation: "",
       draftFile: null,
       category: "",
-      missionResonance: "",
-      missionRelation: "",
       articleFile: null,
+      title: "",
+      about: "",
+      reflection: "",
       references: "",
       abstract: "",
       shortblurb: "",

@@ -1,4 +1,3 @@
-
 //format for all files to be stored in database
 export interface FileBuffer {
   data: Buffer;
@@ -7,8 +6,6 @@ export interface FileBuffer {
   format: "buffer";
 }
 
-
-
 //Helper function to convert a file to a buffer
 // Vital for file uploads to the database
 export async function fileToBuffer(file: File): Promise<FileBuffer> {
@@ -16,12 +13,10 @@ export async function fileToBuffer(file: File): Promise<FileBuffer> {
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
   //then returns the filebuffer object
-    return {
+  return {
     data: buffer,
     filename: file.name,
     contentType: file.type || "application/octet-stream",
     format: "buffer",
-    };
-
-
+  };
 }

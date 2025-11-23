@@ -6,15 +6,21 @@ export const titles = {
   ideaDescription:
     "Tell us about your idea! What kind of article are you thinking of writing about?",
   draftFile: "OPTIONAL: Submit your draft (partial, ideas, etc)",
-  category: "",
-  missionResonance:
-    "Why does the mission of Hayden's Hub resonate with you? Tell us about yourself and your motivation to share your work. ",
-  missionRelation:
-    "Briefly explain how your article relates to the Hayden's Hub mission.",
-  articleFile: "Attach your article draft, make sure the file name is the title of your article.",
-  references:"Please list any references, sources, or citations used in your article.",
-  abstract: "Provide a brief abstract summarizing your article.",
-  shortblurb: "Provide a short blurb (2-3 sentences) that summarizes your article for promotional purposes.",
+  category: "Enter category for your article",
+  authorTitle:
+    'For publishing purposes, is there a specific title you\'d like to go by as the article author? (If not, your title will default to "Advocate")',
+  about:
+    'For publishing purposes, please give a brief description of yourself. (If not, your author description will default to "No description."',
+  reflection:
+    'For publishing purposes, please give a brief reflection on your writing. (If not, your author reflection will default to "No reflection.")',
+  articleFile:
+    "Attach your article draft, make sure the file name is the title of your article.",
+  references:
+    "Please list any references, sources, or citations used in your article.",
+  abstract:
+    "Provide an abstract (longer, one paragraph) for your article. You can copy-and-paste it from your article, if you have one.",
+  shortblurb:
+    "Provide a short blurb (2-3 sentences) that summarizes your article for promotional purposes.",
   signature:
     "By signing your name along with the date, you are hereby agreeing to the 'Hayden's Journal- Privacy & Disclosure Agreement'",
   questions: "Do you have any questions or concerns?",

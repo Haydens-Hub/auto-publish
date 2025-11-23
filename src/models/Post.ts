@@ -5,16 +5,17 @@ export interface Posts extends mongoose.Document {
   name: string;
   email: string;
   date: Date;
+  authorTitle: string;
   submissionType: string;
   ideaDescription: string;
   motivation: string;
   draftFile: any;
   category: string;
-  missionResonance: string;
-  missionRelation: string;
+  reflection: string;
   title: string;
   references: string;
   abstract: string;
+  about: string;
   shortblurb: string;
   articleFile: any;
   signature: string;
@@ -25,6 +26,7 @@ const PostSchema = new mongoose.Schema<Posts>({
   name: { type: String, required: [true, "Name is required"] },
   email: { type: String },
   date: { type: Date, default: Date.now },
+  authorTitle: { type: String, required: false },
   submissionType: {
     type: String,
     enum: ["pitch", "draft"],
@@ -41,17 +43,11 @@ const PostSchema = new mongoose.Schema<Posts>({
     enum: ["academic", "youth", "creative", "advocacy", "community"],
     required: [true, "Category is required"],
   },
-  missionResonance: {
-    type: String,
-    required: [true, "Mission resonance is required"],
-  },
-  missionRelation: {
-    type: String,
-    required: [true, "Mission relation is required"],
-  },
-  title: { type: String, required: [true, "Title is required"] },
+  reflection: { type: String, required: false },
+  about: { type: String, required: false },
+  title: { type: String, required: false },
   references: { type: String, required: [true, "References are required"] },
-  abstract: { type: String, required: [true, "Abstract is required"] },
+  abstract: { type: String, required: false },
   shortblurb: { type: String, required: [true, "Short blurb is required"] },
   articleFile: { type: mongoose.Schema.Types.Mixed },
   signature: { type: String, required: [true, "Signature is required"] },

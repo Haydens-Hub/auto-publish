@@ -27,12 +27,14 @@ export const Step3Form = () => {
       // append all non-file fields
       formDataToSend.append("name", data.name);
       formDataToSend.append("email", data.email);
+      formDataToSend.append("authorTitle", data.authorTitle || "Advocate");
       formDataToSend.append("submissionType", data.submissionType);
       formDataToSend.append("ideaDescription", data.ideaDescription);
       formDataToSend.append("motivation", data.motivation);
       formDataToSend.append("category", data.category);
-      formDataToSend.append("missionResonance", data.missionResonance);
-      formDataToSend.append("missionRelation", data.missionRelation);
+      formDataToSend.append("title", data.title);
+      formDataToSend.append("about", data.about || "No description.");
+      formDataToSend.append("reflection", data.reflection || "No reflection.");
       formDataToSend.append("signature", data.signature);
       formDataToSend.append("questions", data.questions);
       formDataToSend.append("references", data.references);
@@ -57,7 +59,6 @@ export const Step3Form = () => {
         method: "POST",
         body: formDataToSend,
       });
-
     } catch (err) {
       if (err instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
@@ -109,25 +110,13 @@ export const Step3Form = () => {
             options={categories}
             error={errors.category}
           />
-
-          {/* Idea Description */}
+          {/* Title */}
           <FormInput
             type="text"
             placeholder="Your Answer"
-            formDataAttr="missionResonance"
-            required
-            title={titles.missionResonance}
-            error={errors.missionResonance}
-          />
-
-          {/* Mission Relation */}
-          <FormInput
-            type="text"
-            placeholder="Your Answer"
-            formDataAttr="missionRelation"
-            required
-            title={titles.missionRelation}
-            error={errors.missionRelation}
+            formDataAttr="authorTitle"
+            title={titles.authorTitle}
+            error={errors.authorTitle}
           />
 
           {/* Article File */}
@@ -140,7 +129,7 @@ export const Step3Form = () => {
           />
           {/* References*/}
           <FormInput
-            type="text"
+            type="paragraph"
             placeholder="Your Answer"
             formDataAttr="references"
             required
@@ -149,16 +138,15 @@ export const Step3Form = () => {
           />
           {/* Abstract*/}
           <FormInput
-            type="text"
+            type="paragraph"
             placeholder="Your Answer"
             formDataAttr="abstract"
-            required
             title={titles.abstract}
             error={errors.abstract}
           />
           {/* Short Blurb*/}
           <FormInput
-            type="text"
+            type="paragraph"
             placeholder="Your Answer"
             formDataAttr="shortblurb"
             required

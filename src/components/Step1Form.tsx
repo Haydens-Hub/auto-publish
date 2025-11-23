@@ -94,7 +94,6 @@ export const Step1Form = () => {
             title={titles.email}
             error={errors.email}
           />
-
           {/* Submission Type */}
           <FormInput
             type="radio"

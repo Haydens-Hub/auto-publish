@@ -27,7 +27,7 @@ export async function GET(
     if (!file) {
       return new NextResponse(
         `${filetype === "articleFile" ? "Article" : "Draft"} file not found`,
-        { status: 404 }
+        { status: 404 },
       );
     }
     //get the file
@@ -60,7 +60,6 @@ export async function GET(
       status: 200,
       headers: headers,
     });
-      
   } catch (e) {
     console.error("Error downloading article file:", e);
     return new NextResponse("Internal Server Error", { status: 500 });

@@ -2,7 +2,7 @@ import { useFormData } from "@/context/FormContext";
 import React from "react";
 
 type FormInputProps = {
-  type: "text" | "email" | "file" | "radio";
+  type: "text" | "email" | "file" | "radio" | "paragraph";
   formDataAttr: string;
   title: string;
   placeholder?: string;
@@ -31,6 +31,24 @@ const FormInput = ({
         </label>
         <input
           type={type}
+          placeholder={placeholder}
+          value={data[formDataAttr as keyof typeof data] as string}
+          onChange={(e) =>
+            updateField(formDataAttr as keyof typeof data, e.target.value)
+          }
+          className="rounded-md border-t-2 border-gray-300 shadow-md focus:border-indigo-500 focus:ring-indigo-500 w-full px-3 py-2"
+        />
+        {error && <p className="text-red-500">{error}</p>}
+      </div>
+    );
+  } else if (type == "paragraph") {
+    return (
+      <div className="flex flex-col gap-2 my-6 w-full">
+        <label className="flex flex-row text-lg font-semibold">
+          {title}
+          {required && <p className="text-red-500">*</p>}
+        </label>
+        <textarea
           placeholder={placeholder}
           value={data[formDataAttr as keyof typeof data] as string}
           onChange={(e) =>
