@@ -5,7 +5,7 @@ export default function LogIn() {
     <form
       action={async () => {
         "use server"
-        await signIn("google")
+        await signIn("google", {callbackUrl:"/overview"});
       }}
       className="flex justify-center items-center min-h-screen bg-[#5D8DCD]"
     >
