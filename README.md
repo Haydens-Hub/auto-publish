@@ -10,11 +10,18 @@ Auto Publish replaces Hayden's Hub previous Google Forms-based submission system
 ## Set Up
 In order to use Auto Publish, you'll need to create a `.env` file with the following variables:
 ```
+AUTH_SECRET=<your own generated json web token>
+AUTH_TRUST_HOST=true
+AUTH_URL=<domain being deployed to>
 DB_CONNECTION_STRING=<mongodb atlas connection string>
 CONTENTFUL_SPACE_ID=<contentful space id>
 CONTENTFUL_CMA_TOKEN=<contentful cma token>
+GOOGLE_CLIENT_ID=<google oauth 2.0 client id>
+GOOGLE_CLIENT_SECRET=<google oauth 2.0 client secret>
 ```
 Optionally, you can provide a `CONTENTFUL_ENVIRONMENT` variable to specify what environment within your Contentful Space you wish to use.
+
+If you are unsure of how to set up Google OAuth, please this video tutorial [here](https://www.youtube.com/watch?v=ot9yuKg15iA).
 > [!WARNING]  
 > By default, Auto Publish will use `master` as the `CONTENTFUL_ENVIRONMENT` variable if none is specified. This could disrupt your production environment!
 ## Scripts
